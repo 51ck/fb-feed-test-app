@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Feed Test App</title>
+    </head>
+    <body>
+        <p id="out">output</p>
+        <img id="userpic" src="">
+        <button id="auth" type="button">auth</button>
+        <!-- <button id="token" type="button">token</button> -->
+        
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <ul id="feed" class="feed-list">
+        
+        </ul>
+        <!-- id,story,name,link,full_picture,picture,message,caption,created_time -->
+        <script type="text/template" id="list-template">
+        <% _.each(postArray, function(post, index, list) { %>
+            <li class="post">
+                <p>username: <strong><%= name %></strong></p>
+                <p>story: <strong><%= post.story %></strong></p>
+                <p>message: <strong><%= post.message %></strong></p>
+                <p>caption: <strong><%= post.caption %></strong></p>
+                <p>created_time: <strong><%= Date.parse(post.created_time) %></strong></p>
+                <p>id: <strong><%= post.id %></strong></p>
+                <p>name: <strong><%= post.name %></strong></p>
+            </li>
+        <% }); %>
+        </script>
+
+        <script type="text/javascript" src="js/underscore-min.js"></script>
+    </body>
+</html>
