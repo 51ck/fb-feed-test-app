@@ -13,7 +13,17 @@
         <script type="text/javascript" src="js/main.js"></script>
 
         <ul id="feed" class="feed-list">
-        
+            <li class="post">
+                <div class="post-header">
+                    <h2 class="story">Bearded Pete shated link</h2>
+                    <p class="date">12 ноября 2014</p>
+                </div>
+                <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор. Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</p>
+                <div>
+                    <img class="post-img" src="">
+                    <a class="post-name" href="#"></a>
+                </div>
+            </li>
         </ul>
         <!-- id,story,name,link,full_picture,picture,message,caption,created_time -->
         <script type="text/template" id="list-template">
@@ -23,7 +33,7 @@
                 <p>story: <strong><%= post.story %></strong></p>
                 <p>message: <strong><%= post.message %></strong></p>
                 <p>caption: <strong><%= post.caption %></strong></p>
-                <p>created_time: <strong><%= Date.parse(post.created_time) %></strong></p>
+                <p>created_time: <strong><%= post.created_time %></strong></p>
                 <p>id: <strong><%= post.id %></strong></p>
                 <p>name: <strong><%= post.name %></strong></p>
             </li>
