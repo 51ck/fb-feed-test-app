@@ -1,0 +1,91 @@
+body {
+  font-family: tahoma, helvetica, arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5em;
+}
+.feed-list {
+  list-style: none;
+  display: block;
+  width: 512px;
+  min-width: 200px;
+  box-sizing: border-box;
+  margin: 100px auto 0 auto;
+  padding: 10px;
+}
+.feed-list .post {
+  display: block;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.feed-list .post .post-header {
+  display: block;
+  position: relative;
+  padding-left: 50px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  min-height: 40px;
+}
+.feed-list .post .post-header .av {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border: none;
+}
+.feed-list .post .post-header .story {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1em;
+  margin: 0 0 .5em;
+}
+.feed-list .post .post-header .date {
+  font-style: italic;
+  color: gray;
+}
+.feed-list .post .message {
+  margin: 10px auto;
+}
+.feed-list .post .post-teaser {
+  border: 1px solid #eee;
+  display: block;
+  display: relative;
+  box-sizing: border-box;
+  outline: none;
+  padding: 10px;
+}
+.feed-list .post .post-teaser .post-credits {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+}
+.feed-list .post .post-teaser .post-name {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  float: left;
+  color: black;
+}
+.feed-list .post .post-teaser .post-author {
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  float: right;
+  color: gray;
+}
+.feed-list .post .post-teaser .post-img {
+  display: block;
+  margin: -10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 468px;
+}
+.feed-list .post .post-teaser::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.feed-list .post .post:hover .post-teaser {
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+}

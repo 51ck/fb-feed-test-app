@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Feed Test App</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
         <p id="out">output</p>
@@ -13,29 +14,50 @@
         <script type="text/javascript" src="js/main.js"></script>
 
         <ul id="feed" class="feed-list">
-            <li class="post">
+            <li id="post-id" class="post">
                 <div class="post-header">
-                    <h2 class="story">Bearded Pete shated link</h2>
-                    <p class="date">12 ноября 2014</p>
+                    <img class="av" src="#av">
+                    <h2 class="story">Bearded Pete shared a link</h2>
+                    <em class="date">12 ноября 2014</em>
                 </div>
                 <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор. Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</p>
-                <div>
-                    <img class="post-img" src="">
-                    <a class="post-name" href="#"></a>
+                <div class="post-teaser">
+                    <a href="#post-link">
+                        <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
+                        <span class="post-name">Ссылка на страницу</span>
+                    </a>
+                    <a class="post-author" href="#">Автор поста</a>
                 </div>
             </li>
         </ul>
         <!-- id,story,name,link,full_picture,picture,message,caption,created_time -->
         <script type="text/template" id="list-template">
-        <% _.each(postArray, function(post, index, list) { %>
-            <li class="post">
-                <p>username: <strong><%= name %></strong></p>
-                <p>story: <strong><%= post.story %></strong></p>
-                <p>message: <strong><%= post.message %></strong></p>
-                <p>caption: <strong><%= post.caption %></strong></p>
-                <p>created_time: <strong><%= post.created_time %></strong></p>
-                <p>id: <strong><%= post.id %></strong></p>
-                <p>name: <strong><%= post.name %></strong></p>
+        <%
+        var dateOptions = {
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            month: "long"
+        };
+
+        _.each(postArray, function(post, index, list) { %>
+            <li id="<%= post.id %>" class="post">
+                <div class="post-header">
+                    <img class="av" src="<%= userpic %>">
+                    <h2 class="story"><%= post.story %></h2>
+                    <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", dateOptions); %><%= created_time %></em>
+                </div>
+                <% if (post.message) { %>
+                <p class="message"><%= post.message %></p>
+                <% }; %>
+                <div class="post-teaser">
+                    <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>">
+                        <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
+                        <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
+                    </a>
+                    <% if (post.caption) { %><a class="post-author" href="#"><%= post.caption %></a><% }; %>
+                </div>
             </li>
         <% }); %>
         </script>

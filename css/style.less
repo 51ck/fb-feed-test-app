@@ -1,0 +1,116 @@
+@av-size: 40px;
+@feed-width: 512px;
+@feed-padding: 10px;
+
+body {
+    font-family: tahoma, helvetica, arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5em;
+}
+.feed-list {
+    list-style: none;
+    display: block;
+    width: @feed-width;
+    min-width: 200px;
+    box-sizing: border-box;
+    margin: 100px auto 0 auto;
+    padding: @feed-padding;
+
+    .post {
+        display: block;
+        border: 1px solid #eee;
+        padding: @feed-padding;
+        margin-bottom: @feed-padding;
+
+        .post-header {
+            display: block;
+            position: relative;
+            padding-left: @av-size + @feed-padding;
+            margin-top: 0;
+            margin-bottom: @feed-padding;
+            min-height: @av-size;
+
+            .av {
+                position: absolute;
+                left: 0;
+                display: block;
+                width: @av-size;
+                height: @av-size;
+                border: none;
+            }
+
+            .story {
+                font-weight: bold;
+                font-size: 14px;
+                line-height: 1em;
+                margin: 0 0 .5em;
+            }
+
+            .date {
+                font-style: italic;
+                color: gray;
+            }
+
+        }
+
+        // .post-header::before {
+        //     content: "";
+        //     position: absolute;
+        //     left: 0;
+        //     display: block;
+        //     width: @av-size;
+        //     height: @av-size;
+        //     background: #eee;
+        // }
+        
+        .message {
+            margin: @feed-padding auto;
+        }
+
+        .post-teaser {
+            border: 1px solid #eee;
+            display: block;
+            display: relative;
+            box-sizing: border-box;
+            outline: none;
+            padding: @feed-padding;
+
+            .post-credits {
+                display: block;
+                font-size: 14px;
+                text-decoration: none;
+            }
+
+            .post-name {
+                .post-credits;
+                float: left;
+                color: black;
+            }
+
+            .post-author {
+                .post-credits;
+                float: right;
+                color: gray;
+            }
+
+            .post-img {
+                display: block;
+                margin: -1 * @feed-padding;
+                margin-bottom: @feed-padding;            
+                box-sizing: border-box;
+                width: @feed-width - 4 * @feed-padding - 4;
+            }
+
+        }
+
+        .post-teaser::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .post:hover .post-teaser {
+            box-shadow: 2px 2px rgba(0,0,0,.3);
+        }
+    }
+}
