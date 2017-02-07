@@ -13,7 +13,10 @@
         <script id="template" type="text/template">
             <% for (d = 0; d < 7; d++) { %>
             <div class="day">
-                <div class="work"></div>
+                <span><%= week[d].day %></span>
+                <div class="work">
+                    <div class="lunch"></div>
+                </div>
             </div>
             <% }; %>
         </script>

@@ -38,7 +38,14 @@
         border-radius: @borderR - @schPadding;
         background: @keyColor * 2;
         border-bottom: 4px solid rgba(0,0,0,.4);
-        
+        font: 50px helvetica, tahoma, sans-serif;
+        color: rgba(255, 255, 255, .3);
+
+        span {
+            display: block;
+            margin: @schPadding, auto;
+            text-align: center;
+        }
 
         .work {
             position: absolute;
@@ -49,15 +56,14 @@
             border-radius: @borderR - @schPadding;
             border-bottom: 4px solid rgba(0,0,0,.4);
 
-            &::before {
-                content: "";
+            .lunch {
                 position: absolute;
                 display: block;
                 width: @dayWidth;
                 background: lighten(@keyColor, 50%);
                 height: @dayHeight / 24;
                 border-radius: @borderR - @schPadding;
-                border-bottom: 4px solid rgba(0,0,0,.4);
+                border-bottom: 4px solid rgba(0, 0, 0, .4);
             }
         }
 
@@ -65,7 +71,7 @@
             background: lighten(@keyColor, 30%);
             .work {
                 background: spin(@keyColor, -20);
-                &::before {
+                .lunch {
                     backgroung: lighten(@keyColor, 80%);
                 }
             }
@@ -73,33 +79,33 @@
 
         &:nth-child(1) .work,
         &:nth-child(4) .work {
-            top: @dayHeight / 24 * 10;
-            &::before {
-                top: @dayHeight / 24 * 3;
+            bottom: @dayHeight / 24 * 10;
+            .lunch {
+                bottom: @dayHeight / 24 * 3;
             }
         }
 
         &:nth-child(2) .work,
         &:nth-child(3) .work {
-            top: @dayHeight / 24 * 8;
-            &::before {
-                top: @dayHeight / 24 * 4;
+            bottom: @dayHeight / 24 * 8;
+            .lunch {
+                bottom: @dayHeight / 24 * 4;
             }
         }
 
         &:nth-child(5) .work {
-            top: @dayHeight / 24 * 15;
+            bottom: @dayHeight / 24 * 15;
             height: @dayHeight / 24 * 7;
-            &::before {
+            .lunch {
                 display: none;
             }
         }
 
         &:nth-child(7) .work,
         &:nth-child(6) .work {
-            top: @dayHeight / 8 * 3;
+            bottom: @dayHeight / 8 * 3;
             height: @dayHeight / 4;
-            &::before {
+            .lunch {
                 display: none;
             }
         }

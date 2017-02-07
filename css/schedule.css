@@ -23,12 +23,19 @@
   border-radius: 10px;
   background: #cc0066;
   border-bottom: 4px solid rgba(0, 0, 0, 0.4);
+  font: 50px helvetica, tahoma, sans-serif;
+  color: rgba(255, 255, 255, 0.3);
 }
 .schedule .day:first-child {
   margin-left: 0;
 }
 .schedule .day:last-child {
   margin-right: 0;
+}
+.schedule .day span {
+  display: block;
+  margin: 10px, auto;
+  text-align: center;
 }
 .schedule .day .work {
   position: absolute;
@@ -39,8 +46,7 @@
   border-radius: 10px;
   border-bottom: 4px solid rgba(0, 0, 0, 0.4);
 }
-.schedule .day .work::before {
-  content: "";
+.schedule .day .work .lunch {
   position: absolute;
   display: block;
   width: 90px;
@@ -55,38 +61,38 @@
 .schedule .day:hover .work {
   background: #660055;
 }
-.schedule .day:hover .work::before {
+.schedule .day:hover .work .lunch {
   backgroung: #ffffff;
 }
 .schedule .day:nth-child(1) .work,
 .schedule .day:nth-child(4) .work {
-  top: 200px;
+  bottom: 200px;
 }
-.schedule .day:nth-child(1) .work::before,
-.schedule .day:nth-child(4) .work::before {
-  top: 60px;
+.schedule .day:nth-child(1) .work .lunch,
+.schedule .day:nth-child(4) .work .lunch {
+  bottom: 60px;
 }
 .schedule .day:nth-child(2) .work,
 .schedule .day:nth-child(3) .work {
-  top: 160px;
+  bottom: 160px;
 }
-.schedule .day:nth-child(2) .work::before,
-.schedule .day:nth-child(3) .work::before {
-  top: 80px;
+.schedule .day:nth-child(2) .work .lunch,
+.schedule .day:nth-child(3) .work .lunch {
+  bottom: 80px;
 }
 .schedule .day:nth-child(5) .work {
-  top: 300px;
+  bottom: 300px;
   height: 140px;
 }
-.schedule .day:nth-child(5) .work::before {
+.schedule .day:nth-child(5) .work .lunch {
   display: none;
 }
 .schedule .day:nth-child(7) .work,
 .schedule .day:nth-child(6) .work {
-  top: 180px;
+  bottom: 180px;
   height: 120px;
 }
-.schedule .day:nth-child(7) .work::before,
-.schedule .day:nth-child(6) .work::before {
+.schedule .day:nth-child(7) .work .lunch,
+.schedule .day:nth-child(6) .work .lunch {
   display: none;
 }
