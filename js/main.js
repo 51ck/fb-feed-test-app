@@ -15,7 +15,7 @@
         }
         js = d.createElement(s);
         js.id = id;
-        js.src = "http://connect.facebook.net/ru_RU/sdk.js";
+        js.src = "http://connect.facebook.net/ru/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
@@ -44,7 +44,7 @@
             document.querySelector('#userpic').setAttribute('src', avatara);
             alert(document.querySelector('#userpic').getAttribute('src'));
 
-            FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,picture,message,caption,created_time", "limit": "10"}, function(response) {
+            FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,picture,message,caption,created_time", "limit": "25"}, function(response) {
                 var tmplt = _.template(document.querySelector('#list-template').innerHTML)
                     , feedList = document.querySelector('#feed')
                     ;
