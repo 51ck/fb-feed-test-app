@@ -33,31 +33,25 @@
         <!-- id,story,name,link,full_picture,picture,message,caption,created_time -->
         <script type="text/template" id="list-template">
         <%
-        var dateOptions = {
-            day: "numeric",
-            year: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-            month: "long"
-        };
-
         _.each(postArray, function(post, index, list) { %>
             <li id="<%= post.id %>" class="post">
                 <div class="post-header">
                     <img class="av" src="<%= userpic %>">
-                    <h2 class="story"><%= post.story %></h2>
-                    <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", dateOptions); %><%= created_time %></em>
+                    <h2 class="story"><% if (post.story) { %><%= post.story %><% } else { %><%= uname %><% }; %></h2>
+                    <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", options); %><%= created_time %></em>
                 </div>
                 <% if (post.message) { %>
                 <p class="message"><%= post.message %></p>
                 <% }; %>
+                <% if (post.full_picture || post.name || post.caption) { %>
                 <div class="post-teaser">
                     <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>">
                         <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
                         <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
                     </a>
-                    <% if (post.caption) { %><a class="post-author" href="#"><%= post.caption %></a><% }; %>
+                    <% if (post.caption) { %><span class="post-author"><%= post.caption %></span><% }; %>
                 </div>
+                <% }; %>
             </li>
         <% }); %>
         </script>

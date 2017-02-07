@@ -1,4 +1,5 @@
 (function() {
+//--------------------------------------------------------
     window.fbAsyncInit = function() {
         FB.init({
             appId: '619064858288669',
@@ -18,42 +19,54 @@
         js.src = "http://connect.facebook.net/ru/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-
+//--------------------------------------------------------
 
     var out = document.querySelector('#out')
         , authButton = document.querySelector('#auth')
-        , avatara = 'test'
+        , username = "%username%"
+        , avatara = "#"
+        , uid = 0
         ;
+
+    var dateOptions = {
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        month: "long"
+    };
 
     var callback = function(response) {
         if (response.authResponse) {
             console.log("Welcome...");
             FB.api("/me", function(response) {
-               console.log('Good to see you, ' + response.name + '.');
-               console.log(response);
+                username = response.name;
+                uid = response.id;
+                console.log('Good to see you, ' + response.name + '.');
+                console.log(response);
             });
 
             FB.api('/me/picture', function(response) {
-                var avatara = response.data.url;
-                alert(1);
+                avatara = response.data.url;
+                // alert(1);
                 console.log(avatara);
                 // document.querySelector('#userpic').setAttribute('src', avatara);
             });
             
-            alert(2);
+            // alert(2);
             document.querySelector('#userpic').setAttribute('src', avatara);
-            alert(document.querySelector('#userpic').getAttribute('src'));
+            // alert(document.querySelector('#userpic').getAttribute('src'));
 
             FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,picture,message,caption,created_time", "limit": "25"}, function(response) {
                 var tmplt = _.template(document.querySelector('#list-template').innerHTML)
                     , feedList = document.querySelector('#feed')
                     ;
                 console.log(response);
-                _.each(response.data, function(post, index, list){
-                    console.log(Date.parse(post.created_time));
-                });
+                // _.each(response.data, function(post, index, list){
+                //     console.log(Date.parse(post.created_time));
+                // });
 
-                feedList.innerHTML = tmplt({postArray: response.data});
+                feedList.innerHTML = tmplt({postArray: response.data, av: avatara, uname: username, uid: uid, options: dateOptions});
             });
 
         } else {

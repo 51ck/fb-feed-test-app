@@ -1,7 +1,12 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body {
   font-family: tahoma, helvetica, arial, sans-serif;
   font-size: 12px;
   line-height: 1.5em;
+  background: #e9ebee;
 }
 .feed-list {
   list-style: none;
@@ -9,12 +14,16 @@ body {
   width: 512px;
   min-width: 200px;
   box-sizing: border-box;
-  margin: 100px auto 0 auto;
+  margin: 100px auto 0;
   padding: 10px;
 }
 .feed-list .post {
   display: block;
-  border: 1px solid rgba(0, 0, 2, 0.3);
+  border: 1px solid #dfe0e4;
+  border-top-color: #e5e6e9;
+  background: white;
+  border-bottom-color: #d0d1d5;
+  border-radius: 3.5px;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -45,44 +54,40 @@ body {
   color: gray;
 }
 .feed-list .post .message {
-  margin: 10px auto;
+  margin: 10px auto 0;
 }
 .feed-list .post .post-teaser {
-  border: 1px solid rgba(0, 0, 2, 0.3);
   display: block;
-  display: relative;
   box-sizing: border-box;
+  border: 1px solid #e5e5e5;
   outline: none;
   padding: 10px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.1);
+  box-shadow: 0px 0px 2px rgba(0, 0, 3, 0.1);
   transition: box-shadow 0.5s ease;
 }
-.feed-list .post .post-teaser .post-credits {
+.feed-list .post .post-teaser .post-img {
+  display: block;
+  border-bottom: 1px solid #e5e5e5;
+  margin: -10px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  width: 468px;
+}
+.feed-list .post .post-teaser .post-name,
+.feed-list .post .post-teaser .post-author {
+  padding-top: 10px;
+  border: 1px dotted green;
   display: block;
   font-size: 14px;
   text-decoration: none;
 }
 .feed-list .post .post-teaser .post-name {
-  display: block;
-  font-size: 14px;
-  text-decoration: none;
   float: left;
   color: black;
 }
 .feed-list .post .post-teaser .post-author {
-  display: block;
-  font-size: 14px;
-  text-decoration: none;
   float: right;
   color: gray;
-}
-.feed-list .post .post-teaser .post-img {
-  display: block;
-  margin: -10px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 2, 0.3);
-  width: 468px;
 }
 .feed-list .post .post-teaser::after {
   content: "";
@@ -90,5 +95,5 @@ body {
   clear: both;
 }
 .feed-list .post:hover .post-teaser {
-  box-shadow: 0px 0px 5px rgba(0, 0, 3, 0.3);
+  box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.2);
 }

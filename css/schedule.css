@@ -1,0 +1,13 @@
+@day Width: (@schWidth - 2*@chh
+
+.schedule {
+  display: block;
+  width: 700px;
+  height: 500px;
+  margin: 100px auto 0;
+  padding: 10px;
+  border: 1px solid gray;
+  .day {
+    display: inline-block;
+  }
+}
