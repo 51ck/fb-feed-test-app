@@ -1,13 +1,45 @@
-@day Width: (@schWidth - 2*@chh
-
 .schedule {
   display: block;
-  width: 700px;
+  width: 712px;
   height: 500px;
   margin: 100px auto 0;
   padding: 10px;
   border: 1px solid gray;
-  .day {
-    display: inline-block;
-  }
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0px;
+}
+.schedule .day {
+  display: inline-block;
+  position: relative;
+  width: 90px;
+  height: 480px;
+  margin: 0 5px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #99ffcc;
+}
+.schedule .day:first-child {
+  margin-left: 0;
+}
+.schedule .day:last-child {
+  margin-right: 0;
+}
+.schedule .day .work {
+  position: absolute;
+  display: block;
+  width: 90px;
+  background: #660033;
+  height: 180px;
+}
+.schedule .day .work::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 90px;
+  background: #ff66b3;
+  height: 20px;
+}
+.schedule .day:nth-child(1) .work {
+  background-color: black;
 }

@@ -1,17 +1,55 @@
- @schWidth: 710px;
+ @schWidth: 712px;
+ @schHeight: 500px;
  @schPadding: 10px;
- @dayWidth: (@schWidth - 2*@chh
+ @dayMargin: @schPadding / 2;
+ @dayWidth: ((@schWidth - 2) - 8 * @schPadding) / 7 ;
+ @dayHeight: @schHeight - 2 * @schPadding;
+ @keyColor: #660033 + ;
 
-.schedule{
+.schedule {
     display: block;
-    width: 700px;
+    width: @schWidth;
     height: 500px;
     margin: 100px auto 0;
-    padding: 10px;
+    padding: @schPadding;
     border: 1px solid gray;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-size: 0px;
 
     .day {
         display: inline-block;
-        // wi
+        position: relative;
+        width:  @dayWidth;
+        height: @dayHeight;
+        margin: 0 @dayMargin;
+        &:first-child { margin-left: 0; }
+        &:last-child { margin-right: 0; }
+        // border: 3px dashed rgba(0, 0, 0, .3);
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background-color: white - @keyColor;
+
+        .work {
+            position: absolute;
+            display: block;
+            width: @dayWidth;
+            background: @keyColor;
+            height: @dayHeight * 3 / 8;
+
+            &::before {
+                content: "";
+                position: absolute;
+                display: block;
+                width: @dayWidth;
+                background: lighten(@keyColor, 50%);
+                height: @dayHeight / 24;
+            }
+
+        }
+
+        &:nth-child(1) .work {
+            background-color: black;
+        }
     }
 }
