@@ -1,4 +1,4 @@
-(function() {
+(function(_) {
 //--------------------------------------------------------
     window.fbAsyncInit = function() {
         FB.init({
@@ -20,67 +20,87 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 //--------------------------------------------------------
+    function merge(A, B, recursive) { // Слить значения  объекта B в объект A
+        if (!A) { return B };
+        if (!B) { return A };
 
-    var out = document.querySelector('#out')
-        , authButton = document.querySelector('#auth')
-        , username = "%username%"
-        , avatara = "#"
-        , uid = 0
-        ;
-
-    var dateOptions = {
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        month: "long"
+        for (var key in B) {
+            if (B.hasOwnProperty(key)) {
+                if (recursive && typeof A === "object") {
+                    A[key] = merge(A[key], B[key], true);
+                } else {
+                    A[key] = B[key];
+                };
+            };
+        };1
+        return A;
     };
 
-    var callback = function(response) {
-        if (response.authResponse) {
-            console.log("Welcome...");
-            FB.api("/me", function(response) {
-                username = response.name;
-                uid = response.id;
-                console.log('Good to see you, ' + response.name + '.');
-                console.log(response);
+
+    function FeedApp(options) {
+        this.o = merge(this.options, options, true);
+        var btnGetFeed = document.querySelector(this.o.btnGetFeedId);
+        var self = this;
+        btnGetFeed.addEventListener('click', function() { self.getFeed() });
+
+    }
+    FeedApp.prototype.options = {
+        dateOptions: {
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            month: "long"
+        },
+        btnGetFeedId: null,
+        feedListId: null,
+        feedTemplateId: null
+    }
+
+    FeedApp.prototype.user = {
+        uid: null,
+        name: null,
+        picture: null,
+        link: null
+    }
+
+    FeedApp.prototype._realGetFeed_ = function (authResponse) {
+        this.user.uid = authResponse.userID;
+        var self = this;
+        FB.api('/me', { fields: "name,picture,link,quotes"}, function(response){
+            self.user.name = response.name;
+            self.user.picture = response.picture.data.url;
+            self.user.link = response.link;
+
+            var feedList = document.querySelector(self.o.feedListId)
+                , template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML)
+                ;
+
+            FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,message,caption,created_time", "limit": "30"}, function(response) {
+                feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
             });
-
-            FB.api('/me/picture', function(response) {
-                avatara = response.data.url;
-                // alert(1);
-                console.log(avatara);
-                // document.querySelector('#userpic').setAttribute('src', avatara);
-            });
-            
-            // alert(2);
-            document.querySelector('#userpic').setAttribute('src', avatara);
-            // alert(document.querySelector('#userpic').getAttribute('src'));
-
-            FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,picture,message,caption,created_time", "limit": "25"}, function(response) {
-                var tmplt = _.template(document.querySelector('#list-template').innerHTML)
-                    , feedList = document.querySelector('#feed')
-                    ;
-                console.log(response);
-                // _.each(response.data, function(post, index, list){
-                //     console.log(Date.parse(post.created_time));
-                // });
-
-                feedList.innerHTML = tmplt({postArray: response.data, av: avatara, uname: username, uid: uid, options: dateOptions});
-            });
-
-        } else {
-            alert("You shall not pass!");
-        }
-        out.innerText = response.authResponse.accessToken;
-        console.log(response);
+        });
     };
 
-    function myFacebookLogin() {
-        FB.login(callback, {scope: 'user_posts'});
-    };
+    FeedApp.prototype.getFeed = function() {
+        var self = this;
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                self._realGetFeed_(response.authResponse);
+            } else {
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        self._realGetFeed_(response.authResponse);
+                    } else {
+                        alert("You shall not pass!");
+                    }
+                }, { scope: 'user_posts' });
+            }
+        });
+    }
 
-    authButton.onclick = function () {
-        myFacebookLogin()
-    };
-})();
+    document.addEventListener('DOMContentLoaded', function(){
+        new FeedApp({ 'btnGetFeedId': '#get-feed', 'feedListId': '#feed', 'feedTemplateId': '#list-template' });
+    });
+
+})(_);

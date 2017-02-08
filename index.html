@@ -6,38 +6,40 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <p id="out">output</p>
-        <img id="userpic" src="">
-        <button id="auth" type="button">auth</button>
-        <!-- <button id="token" type="button">token</button> -->
-        
-        <script type="text/javascript" src="js/main.js"></script>
+        <main>
+            <p id="out">output</p>
+            <img id="userpic" src="">
+            <button id="get-feed" type="button">GetFeed</button>
+            <!-- <button id="token" type="button">token</button> -->
+            
 
-        <ul id="feed" class="feed-list">
-            <li id="post-id" class="post">
-                <div class="post-header">
-                    <img class="av" src="#av">
-                    <h2 class="story">Bearded Pete shared a link</h2>
-                    <em class="date">12 ноября 2014</em>
-                </div>
-                <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор. Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</p>
-                <div class="post-teaser">
-                    <a href="#post-link">
-                        <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
-                        <span class="post-name">Ссылка на страницу</span>
-                    </a>
-                    <a class="post-author" href="#">Автор поста</a>
-                </div>
-            </li>
-        </ul>
+            <ul id="feed" class="feed-list">
+                <li id="post-id" class="post">
+                    <div class="post-header">
+                        <img class="av" src="#av">
+                        <h2 class="story">Bearded Pete shared a link</h2>
+                        <em class="date">12 ноября 2014</em>
+                    </div>
+                    <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор. Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</p>
+                    <div class="post-teaser">
+                        <a href="#post-link">
+                            <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
+                            <span class="post-name">Ссылка на страницу</span>
+                        </a>
+                        <a class="post-author" href="#">Автор поста</a>
+                    </div>
+                </li>
+            </ul>
+        </main>
+
         <!-- id,story,name,link,full_picture,picture,message,caption,created_time -->
         <script type="text/template" id="list-template">
         <%
         _.each(postArray, function(post, index, list) { %>
             <li id="<%= post.id %>" class="post">
                 <div class="post-header">
-                    <img class="av" src="<%= userpic %>">
-                    <h2 class="story"><% if (post.story) { %><%= post.story %><% } else { %><%= uname %><% }; %></h2>
+                    <img class="av" src="<%= user.picture %>">
+                    <h2 class="story"><% if (post.story) { %><%= post.story %><% } else { %><%= user.name %><% }; %></h2>
                     <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", options); %><%= created_time %></em>
                 </div>
                 <% if (post.message) { %>
@@ -57,5 +59,6 @@
         </script>
 
         <script type="text/javascript" src="js/underscore-min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
