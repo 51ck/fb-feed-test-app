@@ -22,7 +22,7 @@
   margin: 0 5px;
   border-radius: 10px;
   background: #cc0066;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
   font: 50px helvetica, tahoma, sans-serif;
   color: rgba(255, 255, 255, 0.3);
 }
@@ -44,7 +44,7 @@
   background: #660033;
   height: 180px;
   border-radius: 10px;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 }
 .schedule .day .work .lunch {
   position: absolute;
@@ -53,7 +53,7 @@
   background: #ff66b3;
   height: 20px;
   border-radius: 10px;
-  border-bottom: 4px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 }
 .schedule .day:hover {
   background: #ff0080;
