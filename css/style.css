@@ -23,7 +23,7 @@ body {
   border-top-color: #e5e6e9;
   background: white;
   border-bottom-color: #d0d1d5;
-  border-radius: 3.5px;
+  border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -39,9 +39,10 @@ body {
   position: absolute;
   left: 0;
   display: block;
+  box-sizing: border-box;
   width: 50px;
   height: 50px;
-  border: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 .feed-list .post .post-header .story {
   font-weight: bold;
@@ -60,7 +61,7 @@ body {
   position: relative;
   display: block;
   box-sizing: border-box;
-  border: 1px solid #e5e5e5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   outline: none;
   padding: 10px;
   margin-top: 10px;
@@ -69,7 +70,7 @@ body {
 }
 .feed-list .post .post-teaser .post-img {
   display: block;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: -10px;
   margin-bottom: 0;
   box-sizing: border-box;
@@ -84,7 +85,6 @@ body {
 .feed-list .post .post-teaser .post-caption {
   text-decoration: none;
   padding-top: 10px;
-  border: 1px dotted green;
   display: block;
   font: 1em/1.38em inherit;
   color: black;
@@ -98,7 +98,11 @@ body {
   left: 0;
 }
 .feed-list .post .post-teaser .post-name {
-  font: 2em/2em georgia, serif;
+  font: 22px/1em georgia, serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 50px;
 }
 .feed-list .post .post-teaser .post-caption {
   color: gray;

@@ -4,7 +4,7 @@
 @brdTop: #e5e6e9;
 @brdLR: #dfe0e4;
 @brdBtm: #d0d1d5;
-@brdClr: #e5e5e5;
+@brdClr: rgba(0, 0, 0, .1);
 @bodyBckgrnd: #e9ebee; 
 
 * {
@@ -33,7 +33,7 @@ body {
         border-top-color: @brdTop;
         background: white;
         border-bottom-color: @brdBtm;
-        border-radius: 3.5px;
+        border-radius: 5px;
         padding: @feed-padding;
         margin-bottom: @feed-padding;
 
@@ -49,9 +49,10 @@ body {
                 position: absolute;
                 left: 0;
                 display: block;
+                box-sizing: border-box;
                 width: @av-size;
                 height: @av-size;
-                border: none;
+                box-shadow: 0 0 0 1px @brdClr; 
             }
 
             .story {
@@ -102,7 +103,7 @@ body {
             .post-caption {  
                 text-decoration: none;
                 padding-top: @feed-padding;
-                border: 1px dotted green;
+                // border: 1px dotted green;
                 display: block;
                 font: 1em/1.38em inherit;
                 color: black;
@@ -118,7 +119,11 @@ body {
             }
 
             .post-name {
-                font: 2em/2em georgia, serif;
+                font: 22px/1em georgia, serif;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-height: 50px;
             }
 
             .post-description {

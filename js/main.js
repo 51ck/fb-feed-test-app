@@ -26,13 +26,13 @@
 
         for (var key in B) {
             if (B.hasOwnProperty(key)) {
-                if (recursive && typeof A === "object") {
+                if (recursive && typeof A[key] === "object") {
                     A[key] = merge(A[key], B[key], true);
                 } else {
                     A[key] = B[key];
                 };
             };
-        };1
+        };
         return A;
     };
 
@@ -54,7 +54,8 @@
         },
         btnGetFeedId: null,
         feedListId: null,
-        feedTemplateId: null
+        feedTemplateId: null,
+        meRequestFields: "name,picture,link"
     }
 
     FeedApp.prototype.user = {
@@ -67,7 +68,7 @@
     FeedApp.prototype._realGetFeed_ = function (authResponse) {
         this.user.uid = authResponse.userID;
         var self = this;
-        FB.api('/me', { fields: "name,picture,link,quotes"}, function(response){
+        FB.api('/me', { fields: self.o.meRequestFields}, function(response){
             self.user.name = response.name;
             self.user.picture = response.picture.data.url;
             self.user.link = response.link;
@@ -75,10 +76,8 @@
             var feedList = document.querySelector(self.o.feedListId)
                 , template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML)
                 ;
+            feedList.innerHTML = template({postArray: response.feed.data, user: self.user, options: self.o.dateOptions});
 
-            FB.api('/me/feed', {"fields": "id,story,name,link,full_picture,message,caption,created_time", "limit": "30"}, function(response) {
-                feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
-            });
         });
     };
 
@@ -100,7 +99,12 @@
     }
 
     document.addEventListener('DOMContentLoaded', function(){
-        new FeedApp({ 'btnGetFeedId': '#get-feed', 'feedListId': '#feed', 'feedTemplateId': '#list-template' });
+        new FeedApp({
+            'btnGetFeedId': '#get-feed',
+            'feedListId': '#feed',
+            'feedTemplateId': '#list-template',
+            'meRequestFields': 'id,name,picture,feed.limit(10){id,story,link,message,caption,name,description,created_time,permalink_url,full_picture}'
+        });
     });
 
 })(_);
