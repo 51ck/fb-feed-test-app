@@ -43,7 +43,8 @@
         var self = this;
         btnGetFeed.addEventListener('click', function() { self.getFeed() });
 
-    }
+    };
+
     FeedApp.prototype.options = {
         dateOptions: {
             day: "numeric",
@@ -55,55 +56,76 @@
         btnGetFeedId: null,
         feedListId: null,
         feedTemplateId: null,
-        meRequestFields: "name,picture,link"
-    }
+        feedRequstFields: 'message',
+        feedLimit: 10,
+        meRequestFields: 'name,picture,link',
+        scope: null
+    };
 
     FeedApp.prototype.user = {
         uid: null,
         name: null,
         picture: null,
         link: null
-    }
+    };
 
-    FeedApp.prototype._realGetFeed_ = function (authResponse) {
-        this.user.uid = authResponse.userID;
+    FeedApp.prototype._getUserInfo_ = function(uid) {
         var self = this;
-        FB.api('/me', { fields: self.o.meRequestFields}, function(response){
+        if (typeof uid === 'undefined') { uid = '/me'; };
+        FB.api('/me', { fields: self.o.meRequestFields }, function(response) {
+            self.user.uid = response.id;
             self.user.name = response.name;
             self.user.picture = response.picture.data.url;
             self.user.link = response.link;
-
-            var feedList = document.querySelector(self.o.feedListId)
-                , template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML)
-                ;
-            feedList.innerHTML = template({postArray: response.feed.data, user: self.user, options: self.o.dateOptions});
-
         });
     };
 
-    FeedApp.prototype.getFeed = function() {
+    FeedApp.prototype.login = function(callback) {
         var self = this;
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
-                self._realGetFeed_(response.authResponse);
+                self._getUserInfo_();
+                if (typeof callback === 'function') {
+                    callback();
+                };
             } else {
                 FB.login(function(response) {
                     if (response.authResponse) {
-                        self._realGetFeed_(response.authResponse);
+                        self._getUserInfo_();
+                        if (typeof callback === 'function') {
+                            callback();
+                        };
                     } else {
                         alert("You shall not pass!");
-                    }
-                }, { scope: 'user_posts' });
-            }
+                    };
+                }, { scope: self.o.scope });
+            };
         });
-    }
+        
+    };
+
+    FeedApp.prototype.getFeed = function () {
+        var self = this;
+        self.login (function() {
+            FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {
+
+                var feedList = document.querySelector(self.o.feedListId)
+                    , template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML)
+                    ;
+                feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
+            });
+        });
+    };
 
     document.addEventListener('DOMContentLoaded', function(){
         new FeedApp({
             'btnGetFeedId': '#get-feed',
             'feedListId': '#feed',
             'feedTemplateId': '#list-template',
-            'meRequestFields': 'id,name,picture,feed.limit(10){id,story,link,message,caption,name,description,created_time,permalink_url,full_picture}'
+            'meRequestFields': 'id,name,picture,link',
+            'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',
+            'feedLimit': 25,
+            'scope': 'user_posts'
         });
     });
 
