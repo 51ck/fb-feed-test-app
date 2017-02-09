@@ -1,4 +1,4 @@
-@av-size: 40px;
+@av-size: 50px;
 @feed-width: 512px;
 @feed-padding: 10px;
 @brdTop: #e5e6e9;
@@ -57,7 +57,7 @@ body {
             .story {
                 font-weight: bold;
                 font-size: 14px;
-                line-height: 1em;
+                line-height: 2em;
                 margin: 0 0 .5em;
             }
 
@@ -89,6 +89,11 @@ body {
                 margin-bottom: 0;            
                 box-sizing: border-box;
                 width: @feed-width - 4 * @feed-padding - 4;
+
+                &:only-child {
+                     margin: -1 * @feed-padding;
+                     border: none;
+                }
             }
 
             .post-name,

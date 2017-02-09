@@ -30,23 +30,23 @@ body {
 .feed-list .post .post-header {
   display: block;
   position: relative;
-  padding-left: 50px;
+  padding-left: 60px;
   margin-top: 0;
   margin-bottom: 10px;
-  min-height: 40px;
+  min-height: 50px;
 }
 .feed-list .post .post-header .av {
   position: absolute;
   left: 0;
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border: none;
 }
 .feed-list .post .post-header .story {
   font-weight: bold;
   font-size: 14px;
-  line-height: 1em;
+  line-height: 2em;
   margin: 0 0 .5em;
 }
 .feed-list .post .post-header .date {
@@ -73,6 +73,10 @@ body {
   margin-bottom: 0;
   box-sizing: border-box;
   width: 468px;
+}
+.feed-list .post .post-teaser .post-img:only-child {
+  margin: -10px;
+  border: none;
 }
 .feed-list .post .post-teaser .post-name,
 .feed-list .post .post-teaser .post-author {
