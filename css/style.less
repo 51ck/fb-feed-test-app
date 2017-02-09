@@ -15,7 +15,7 @@
 body {
     font-family: tahoma, helvetica, arial, sans-serif;
     font-size: 12px;
-    line-height: 1.5em;
+    line-height: 1.38em;
     background: @bodyBckgrnd;
 }
 .feed-list {
@@ -73,6 +73,7 @@ body {
         }
 
         .post-teaser {
+            position: relative;
             display: block;
             box-sizing: border-box;
             border: 1px solid @brdClr;
@@ -97,22 +98,37 @@ body {
             }
 
             .post-name,
-            .post-author
-             {  padding-top: @feed-padding;
-                // border: 1px dotted green;
-                display: block;
-                font-size: 14px;
+            .post-description,
+            .post-caption {  
                 text-decoration: none;
-            }
-
-            .post-name {
-                float: left;
+                padding-top: @feed-padding;
+                border: 1px dotted green;
+                display: block;
+                font: 1em/1.38em inherit;
                 color: black;
             }
 
-            .post-author {
-                float: right;
+            a {
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+
+            .post-name {
+                font: 2em/2em georgia, serif;
+            }
+
+            .post-description {
+            
+            }
+
+            .post-caption {
+                // float: left;
                 color: gray;
+                text-transform: uppercase;
             }
 
 

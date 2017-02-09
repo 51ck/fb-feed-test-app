@@ -20,13 +20,13 @@
                         <h2 class="story">Bearded Pete shared a link</h2>
                         <em class="date">12 ноября 2014</em>
                     </div>
-                    <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор. Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</p>
+                    <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор.</p>
                     <div class="post-teaser">
-                        <a href="#post-link">
-                            <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
-                            <span class="post-name">Ссылка на страницу</span>
-                        </a>
-                        <a class="post-author" href="#">Автор поста</a>
+                        <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
+                        <span class="post-name">Новый велосипед "LESS"</span>
+                        <span class="post-description"> Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</span>
+                        <span class="post-caption">post-name</span>
+                        <a href="#post-link"></a>
                     </div>
                 </li>
             </ul>
@@ -45,13 +45,13 @@
                 <% if (post.message) { %>
                 <p class="message"><%= post.message %></p>
                 <% }; %>
-                <% if (post.full_picture || post.name || post.caption) { %>
+                <% if (post.full_picture || post.name || post.description || post.caption) { %>
                 <div class="post-teaser">
-                    <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>">
-                        <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
-                        <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
-                    </a>
-                    <% if (post.caption) { %><span class="post-author"><%= post.caption %></span><% }; %>
+                    <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>"></a>
+                    <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
+                    <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
+                    <% if (post.description) { %><span class="post-description"><%= post.description %></span><% }; %>
+                    <% if (post.caption) { %><span class="post-caption"><%= post.caption %></span><% }; %>
                 </div>
                 <% }; %>
             </li>
