@@ -75,7 +75,7 @@ body {
   box-sizing: border-box;
   width: 468px;
 }
-.feed-list .post .post-teaser .post-img:only-child {
+.feed-list .post .post-teaser .post-img:last-child {
   margin: -10px;
   border: none;
 }
@@ -105,6 +105,9 @@ body {
 }
 .feed-list .post .post-teaser .post-caption {
   color: gray;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-transform: uppercase;
 }
 .feed-list .post .post-teaser::after {

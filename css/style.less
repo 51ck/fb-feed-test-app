@@ -92,7 +92,7 @@ body {
                 box-sizing: border-box;
                 width: @feed-width - 4 * @feed-padding - 4;
 
-                &:only-child {
+                &:last-child {
                      margin: -1 * @feed-padding;
                      border: none;
                 }
@@ -103,7 +103,6 @@ body {
             .post-caption {  
                 text-decoration: none;
                 padding-top: @feed-padding;
-                // border: 1px dotted green;
                 display: block;
                 font: 1em/1.38em inherit;
                 color: black;
@@ -131,8 +130,10 @@ body {
             }
 
             .post-caption {
-                // float: left;
                 color: gray;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 text-transform: uppercase;
             }
 
