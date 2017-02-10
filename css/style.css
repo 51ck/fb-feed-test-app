@@ -4,9 +4,46 @@
 }
 body {
   font-family: tahoma, helvetica, arial, sans-serif;
+  padding: 85px 10px 0;
+  margin: 0;
   font-size: 12px;
   line-height: 1.38em;
   background: #e9ebee;
+  min-width: 532px;
+}
+.header {
+  display: block;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid #29487d;
+  background: #4267b2;
+  padding: 10px;
+}
+.button {
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  padding: .5em;
+  border-radius: 3px;
+  background: #4267b2;
+  color: white;
+  font-weight: bold;
+  line-height: 1em;
+}
+.button:hover {
+  background: #365899;
+}
+.button:active {
+  background: #365899;
+}
+.button:disabled {
+  color: #e6e6e6;
+  background: #7a7a7a;
 }
 .feed-list {
   list-style: none;
@@ -100,6 +137,7 @@ body {
   font: 22px/1em georgia, serif;
   white-space: nowrap;
   overflow: hidden;
+  overflow-y: visible;
   text-overflow: ellipsis;
   max-height: 50px;
 }

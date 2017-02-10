@@ -20,6 +20,8 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 //--------------------------------------------------------
+
+
     function merge(A, B, recursive) { // Слить значения  объекта B в объект A
         if (!A) { return B };
         if (!B) { return A };
@@ -37,7 +39,7 @@
     };
 
 
-    function FeedApp(options) {
+    function FeedApp(options) { // Собственно класс приложения
         this.o = merge(this.options, options, true);
         var btnGetFeed = document.querySelector(this.o.btnGetFeedId);
         var self = this;
@@ -69,7 +71,7 @@
         link: null
     };
 
-    FeedApp.prototype._getUserInfo_ = function(uid) {
+    FeedApp.prototype._getUserInfo_ = function(uid) { // Метод, забирающий uid, имя пользователя, ссылки на аватар и страницу 
         var self = this;
         if (typeof uid === 'undefined') { uid = '/me'; };
         FB.api('/me', { fields: self.o.meRequestFields }, function(response) {
@@ -80,7 +82,7 @@
         });
     };
 
-    FeedApp.prototype.login = function(callback) {
+    FeedApp.prototype.login = function(callback) { // Метод, выполняющий коллбэк с проверкой авторизации на ФБ
         var self = this;
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
@@ -104,7 +106,7 @@
         
     };
 
-    FeedApp.prototype.getFeed = function () {
+    FeedApp.prototype.getFeed = function () { // Получение постов из фида, размещение данных на странице 
         var self = this;
         self.login (function() {
             FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {

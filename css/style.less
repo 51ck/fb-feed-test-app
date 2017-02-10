@@ -4,8 +4,12 @@
 @brdTop: #e5e6e9;
 @brdLR: #dfe0e4;
 @brdBtm: #d0d1d5;
+@bodyBckgrnd: #e9ebee;
+@san-marino: #4267b2;
+@st-topaz: #365899;
+@east-bay: #29487d;
 @brdClr: rgba(0, 0, 0, .1);
-@bodyBckgrnd: #e9ebee; 
+@header-height: 75px;
 
 * {
     -webkit-font-smoothing: antialiased;
@@ -14,10 +18,54 @@
 
 body {
     font-family: tahoma, helvetica, arial, sans-serif;
+    padding: @header-height + @feed-padding @feed-padding 0;
+    margin: 0;
     font-size: 12px;
     line-height: 1.38em;
     background: @bodyBckgrnd;
+    min-width: @feed-width + 2 * @feed-padding;
 }
+
+.header {
+    display: block;
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid @east-bay;
+    background: @san-marino;
+    padding: @feed-padding;
+
+}
+
+.button {
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    margin: 0;
+    padding: .5em;
+    border-radius: 3px;
+    background: @san-marino;
+    color: white;
+    font-weight: bold;
+    line-height: 1em;
+
+    &:hover {
+        background: @st-topaz;
+    }
+
+    &:active {
+        background: @st-topaz;
+    }
+
+    &:disabled {
+        color: darken(white, 10%);
+        background: greyscale(@san-marino);
+    }
+}
+
 .feed-list {
     list-style: none;
     display: block;
@@ -121,6 +169,7 @@ body {
                 font: 22px/1em georgia, serif;
                 white-space: nowrap;
                 overflow: hidden;
+                overflow-y: visible;
                 text-overflow: ellipsis;
                 max-height: 50px;
             }

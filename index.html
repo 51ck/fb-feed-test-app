@@ -6,8 +6,13 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
+        <header>
+            <div class="header">
+                <button id="get-feed" class="button" type="button">Get your feed</button>
+                <button id="top-tags" class="button" type="button" disabled>Top tags</button>
+            </div>
+        </header>
         <main>
-            <button id="get-feed" type="button">GetFeed</button>            
 
             <ul id="feed" class="feed-list">
 <!--                 <li id="post-id" class="post">
@@ -28,7 +33,7 @@
             </ul>
         </main>
 
-        <script type="text/template" id="list-template">
+        <script type="text/template" id="list-template"> 
         <%
         _.each(postArray, function(post, index, list) { %>
             <li id="<%= post.id %>" class="post">
