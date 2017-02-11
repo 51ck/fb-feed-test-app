@@ -93,6 +93,10 @@ body {
 .feed-list .post .message {
   margin: 10px auto 0;
 }
+.feed-list .post .message:last-child {
+  font-size: 2.7em;
+  line-height: 1.12em;
+}
 .feed-list .post .post-teaser {
   position: relative;
   display: block;

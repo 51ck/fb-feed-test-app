@@ -51,8 +51,7 @@
         var btnTopTags = document.querySelector(this.o.btnTopTagsId);
         btnGetFeed.addEventListener('click', function() { // Клик по кнопке get-feed
             self.getFeed(function(){
-                // var btnTopTags = document.querySelector(self.o.btnTopTagsId); // Делаем кнопку top-tags активной
-                if (btnTopTags.disabled) {
+                if (btnTopTags.disabled) { // Делаем кнопку top-tags активной
                     self.login(function(){
                         changeButtonState(btnTopTags);
                     }); 
@@ -61,11 +60,27 @@
         });
 
         btnTopTags.addEventListener('click', function() { // Клик по кнопке top-tags
-            console.log(self.login(function(){ self._getMessageArray_(); }));
-
+            self.login(function() {
+                self._getMessageArray_(function(messageArray) {
+                    console.log(messageArray);
+                    var tagSet = new Object();
+                    for (var m = 0, len = messageArray.length; m < len; m++) {
+                        var tagArray = messageArray[m].match(/\s(\#\w+)/ig);
+                        if (tagArray && typeof tagArray === 'object') {
+                            for (var t = 0, n = tagArray.length; t < n; t++) {
+                                var tag = tagArray[t].slice(1);
+                                if (tagSet.hasOwnProperty(tag)) {
+                                    tagSet[tag]++;
+                                } else {
+                                    tagSet[tag] = 1;
+                                };
+                            };
+                        };
+                    };
+                    console.log(tagSet);
+                });
+            }); 
         });
-
-
     };
 
     FeedApp.prototype.options = {
@@ -128,27 +143,28 @@
         
     };
 
-    FeedApp.prototype._getMessageArray_ = function() { // Вытаскиваем из фида только post.message
+    FeedApp.prototype._getMessageArray_ = function(callback) { // Вытаскиваем из фида только post.message
         var self = this;
-        var until = Date.now();
-        var messageArray = [];
-        var length;
+        var messageArray = new Array();
 
-        do {
-            FB.api('/me/feed', {'fields': 'message,created_time', 'until': until}, function(response) {
-                length = response.data.length;
-                until = Date.parse(_.last(response.data)['created_time']);
-                console.log(this);
+        if (typeof callback === 'function') {
+            FB.api('/me/feed', {'fields': 'message,created_time', 'limit': '9999997'}, function(response) {
+                for (var p = 0, l = response.data.length; p < l; p++) {
+                    if (response.data[p].message) {
+                        messageArray.push(response.data[p].message);
+                    };
+                };
+                callback(messageArray);
             });
-            console.log(until);
-        } while (length);
-
-        //return messageArray;
+        } else {
+            console.log("_getMessageArray_: wrong callback");
+        };
     };
 
     // FeedApp.prototype.getUserTags = function() { // Метод получения тегов. Возвращает {tag: count, ...}
     //     var self = this;
     //     var tagSet = {};
+    //     if (!tagSet['tag']) {tagSet['tag']=1} else {tagSet['tag']++};
     // };
 
     FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 

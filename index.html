@@ -43,14 +43,14 @@
                     <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", options); %><%= created_time %></em>
                 </div>
                 <% if (post.message) { %>
-                <p class="message"><%= post.message %></p>
+                <p class="message"><%- post.message %></p>
                 <% }; %>
                 <% if (post.full_picture || post.name || post.description || post.caption) { %>
                 <div class="post-teaser">
                     <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>"></a>
                     <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
                     <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
-                    <% if (post.description) { %><span class="post-description"><%= post.description %></span><% }; %>
+                    <% if (post.description) { %><span class="post-description"><%- post.description %></span><% }; %>
                     <% if (post.caption) { %><span class="post-caption"><%= post.caption %></span><% }; %>
                 </div>
                 <% }; %>
