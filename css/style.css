@@ -134,12 +134,10 @@ body {
   left: 0;
 }
 .feed-list .post .post-teaser .post-name {
-  font: 22px/1em georgia, serif;
+  font: 22px/1.1em georgia, serif;
   white-space: nowrap;
-  overflow: hidden;
-  overflow-y: visible;
+  overflow-x: hidden;
   text-overflow: ellipsis;
-  max-height: 50px;
 }
 .feed-list .post .post-teaser .post-caption {
   color: gray;

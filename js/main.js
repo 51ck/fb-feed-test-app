@@ -38,12 +38,33 @@
         return A;
     };
 
+    function changeButtonState(button) { // Изменение свойства disabled у кнопки на противоположное
+        if (button.type === 'button' && (!button.disabled || button.disabled)) {
+            button.disabled = !button.disabled;
+        };
+    };
 
     function FeedApp(options) { // Собственно класс приложения
+        var self = this;
         this.o = merge(this.options, options, true);
         var btnGetFeed = document.querySelector(this.o.btnGetFeedId);
-        var self = this;
-        btnGetFeed.addEventListener('click', function() { self.getFeed() });
+        var btnTopTags = document.querySelector(this.o.btnTopTagsId);
+        btnGetFeed.addEventListener('click', function() { // Клик по кнопке get-feed
+            self.getFeed(function(){
+                // var btnTopTags = document.querySelector(self.o.btnTopTagsId); // Делаем кнопку top-tags активной
+                if (btnTopTags.disabled) {
+                    self.login(function(){
+                        changeButtonState(btnTopTags);
+                    }); 
+                };
+            });
+        });
+
+        btnTopTags.addEventListener('click', function() { // Клик по кнопке top-tags
+            console.log(self.login(function(){ self._getMessageArray_(); }));
+
+        });
+
 
     };
 
@@ -56,6 +77,7 @@
             month: "long"
         },
         btnGetFeedId: null,
+        btnTopTagsId: null,
         feedListId: null,
         feedTemplateId: null,
         feedRequstFields: 'message',
@@ -106,7 +128,30 @@
         
     };
 
-    FeedApp.prototype.getFeed = function () { // Получение постов из фида, размещение данных на странице 
+    FeedApp.prototype._getMessageArray_ = function() { // Вытаскиваем из фида только post.message
+        var self = this;
+        var until = Date.now();
+        var messageArray = [];
+        var length;
+
+        do {
+            FB.api('/me/feed', {'fields': 'message,created_time', 'until': until}, function(response) {
+                length = response.data.length;
+                until = Date.parse(_.last(response.data)['created_time']);
+                console.log(this);
+            });
+            console.log(until);
+        } while (length);
+
+        //return messageArray;
+    };
+
+    // FeedApp.prototype.getUserTags = function() { // Метод получения тегов. Возвращает {tag: count, ...}
+    //     var self = this;
+    //     var tagSet = {};
+    // };
+
+    FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 
         var self = this;
         self.login (function() {
             FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {
@@ -117,11 +162,14 @@
                 feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
             });
         });
+
+        if (typeof callback === 'function') { callback() };
     };
 
     document.addEventListener('DOMContentLoaded', function(){
         new FeedApp({
             'btnGetFeedId': '#get-feed',
+            'btnTopTagsId': '#top-tags',
             'feedListId': '#feed',
             'feedTemplateId': '#list-template',
             'meRequestFields': 'id,name,picture,link',
