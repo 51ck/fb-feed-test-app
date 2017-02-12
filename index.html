@@ -17,7 +17,7 @@
             <ul id="feed" class="feed-list">
 <!--                 <li id="post-id" class="post">
                     <div class="post-header">
-                        <img class="av" src="#av">
+                        <a href="#"><div class="av av-inner-border-hack"><img class="av" src="#av"></div></a>
                         <h2 class="story">Bearded Pete shared a link</h2>
                         <em class="date">12 ноября 2014</em>
                     </div>
@@ -38,7 +38,11 @@
         _.each(postArray, function(post, index, list) { %>
             <li id="<%= post.id %>" class="post">
                 <div class="post-header">
-                    <img class="av" src="<%= user.picture %>">
+                    <a href="<%= user.link %>">
+                        <div class="av av-inner-border-hack">
+                            <img class="av" src="<%= user.picture %>">
+                        </div>
+                    </a>
                     <h2 class="story"><% if (post.story) { %><%= post.story %><% } else { %><%= user.name %><% }; %></h2>
                     <em class="date"><% var date = new Date(post.created_time), created_time = date.toLocaleString("ru", options); %><%= created_time %></em>
                 </div>

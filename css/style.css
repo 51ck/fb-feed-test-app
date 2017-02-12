@@ -67,23 +67,32 @@ body {
 .feed-list .post .post-header {
   display: block;
   position: relative;
-  padding-left: 60px;
+  padding-left: 50px;
   margin-top: 0;
   margin-bottom: 10px;
-  min-height: 50px;
+  min-height: 40px;
 }
 .feed-list .post .post-header .av {
   position: absolute;
   left: 0;
   display: block;
   box-sizing: border-box;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+}
+.feed-list .post .post-header .av-inner-border-hack::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .feed-list .post .post-header .story {
   font-weight: bold;
   font-size: 14px;
-  line-height: 2em;
+  line-height: 1.5em;
   margin: 0;
 }
 .feed-list .post .post-header .date {
@@ -94,7 +103,7 @@ body {
   margin: 10px auto 0;
 }
 .feed-list .post .message:last-child {
-  font-size: 2.7em;
+  font-size: 2.2em;
   line-height: 1.12em;
 }
 .feed-list .post .post-teaser {

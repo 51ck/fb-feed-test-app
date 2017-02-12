@@ -46,9 +46,9 @@
 
     function FeedApp(options) { // Собственно класс приложения
         var self = this;
-        this.o = merge(this.options, options, true);
-        var btnGetFeed = document.querySelector(this.o.btnGetFeedId);
-        var btnTopTags = document.querySelector(this.o.btnTopTagsId);
+        self.o = merge(self.options, options, true);
+        var btnGetFeed = document.querySelector(self.o.btnGetFeedId);
+        var btnTopTags = document.querySelector(self.o.btnTopTagsId);
         btnGetFeed.addEventListener('click', function() { // Клик по кнопке get-feed
             self.getFeed(function(){
                 if (btnTopTags.disabled) { // Делаем кнопку top-tags активной
@@ -60,26 +60,36 @@
         });
 
         btnTopTags.addEventListener('click', function() { // Клик по кнопке top-tags
-            self.login(function() {
-                self._getMessageArray_(function(messageArray) {
-                    console.log(messageArray);
-                    var tagSet = new Object();
-                    for (var m = 0, len = messageArray.length; m < len; m++) {
-                        var tagArray = messageArray[m].match(/\s(\#\w+)/ig);
-                        if (tagArray && typeof tagArray === 'object') {
-                            for (var t = 0, n = tagArray.length; t < n; t++) {
-                                var tag = tagArray[t].slice(1);
-                                if (tagSet.hasOwnProperty(tag)) {
-                                    tagSet[tag]++;
-                                } else {
-                                    tagSet[tag] = 1;
-                                };
+             self.getUserTags(function(tagSet){
+                var topTags = Object.keys(tagSet).sort(function(a, b) {return tagSet[b] - tagSet[b];}).splice(0, self.o.tagCount);
+                console.log(topTags);
+             });
+        });
+    };
+
+    FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов.
+        var self = this;
+        self.login(function() {
+            self._getMessageArray_(function(messageArray) {
+                console.log(messageArray);
+                var tagSet = new Object();
+                for (var m = 0, len = messageArray.length; m < len; m++) {
+                    var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
+                    if (tagArray && typeof tagArray === 'object') {
+                        for (var t = 0, n = tagArray.length; t < n; t++) {
+                            var tag = tagArray[t].replace(/\s+/g, '');
+                            if (tagSet.hasOwnProperty(tag)) {
+                                tagSet[tag]++;
+                            } else {
+                                tagSet[tag] = 1;
                             };
                         };
                     };
-                    console.log(tagSet);
-                });
-            }); 
+                };
+                if (typeof callback === 'function') {
+                    callback(tagSet);
+                };
+            });
         });
     };
 
@@ -92,8 +102,9 @@
             month: "long"
         },
         btnGetFeedId: null,
-        btnTopTagsId: null,
         feedListId: null,
+        btnTopTagsId: null,
+        tagCount: 1,
         feedTemplateId: null,
         feedRequstFields: 'message',
         feedLimit: 10,
@@ -161,11 +172,6 @@
         };
     };
 
-    // FeedApp.prototype.getUserTags = function() { // Метод получения тегов. Возвращает {tag: count, ...}
-    //     var self = this;
-    //     var tagSet = {};
-    //     if (!tagSet['tag']) {tagSet['tag']=1} else {tagSet['tag']++};
-    // };
 
     FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 
         var self = this;
@@ -185,8 +191,9 @@
     document.addEventListener('DOMContentLoaded', function(){
         new FeedApp({
             'btnGetFeedId': '#get-feed',
-            'btnTopTagsId': '#top-tags',
             'feedListId': '#feed',
+            'btnTopTagsId': '#top-tags',
+            'tagCount': 5,
             'feedTemplateId': '#list-template',
             'meRequestFields': 'id,name,picture,link',
             'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',

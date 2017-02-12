@@ -1,4 +1,4 @@
-@av-size: 50px;
+@av-size: 40px;
 @feed-width: 512px;
 @feed-padding: 10px;
 @brdTop: #e5e6e9;
@@ -100,13 +100,25 @@ body {
                 box-sizing: border-box;
                 width: @av-size;
                 height: @av-size;
-                // box-shadow: 0 0 0 1px @brdClr; 
+                // box-shadow: 0 0 0 1px @brdClr;
+            }
+
+            .av-inner-border-hack {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    border: 1px solid @brdClr;
+                }
             }
 
             .story {
                 font-weight: bold;
                 font-size: 14px;
-                line-height: 2em;
+                line-height: 1.5em;
                 margin: 0;
             }
 
@@ -120,7 +132,7 @@ body {
         .message {
             margin: @feed-padding auto 0;
             &:last-child {
-                font-size: 2.7em;
+                font-size: 2.2em;
                 line-height: 1.12em;
             }
         }
