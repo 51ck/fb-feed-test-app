@@ -1,5 +1,5 @@
 (function(_) {
-//--------------------------------------------------------
+//-FACEBOOK-----------------------------------------------
     window.fbAsyncInit = function() {
         FB.init({
             appId: '619064858288669',
@@ -61,9 +61,14 @@
 
         btnTopTags.addEventListener('click', function() { // Клик по кнопке top-tags
              self.getUserTags(function(tagSet){
-                var topTags = Object.keys(tagSet).sort(function(a, b) {return tagSet[b] - tagSet[b];}).splice(0, self.o.tagCount);
-                console.log(topTags);
+                self.showTopTags(tagSet);
              });
+        });
+
+        var btnPopupClose = document.querySelector(self.o.btnPopupCloseId);
+        btnPopupClose.addEventListener('click', function() {
+            var popupBox = document.querySelector(self.o.popupBoxId);
+            popupBox.style.display = 'none';
         });
     };
 
@@ -76,10 +81,14 @@
             month: "long"
         },
         btnGetFeedId: null,
-        feedListId: null,
         btnTopTagsId: null,
+        btnPopupCloseId: null,
+        feedListId: null,
+        tagTableId: null,
+        popupBoxId: null,
         tagCount: 1,
         feedTemplateId: null,
+        tagTableTemplateId: null,
         feedRequstFields: 'message',
         feedLimit: 10,
         meRequestFields: 'name,picture,link',
@@ -125,7 +134,6 @@
                 }, { scope: self.o.scope });
             };
         });
-        
     };
 
     FeedApp.prototype._getMessageArray_ = function(callback) { // Вытаскиваем из фида только post.message
@@ -145,28 +153,22 @@
             console.log("_getMessageArray_: wrong callback");
         };
     };
-
-
     FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 
         var self = this;
         self.login (function() {
             FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {
-
-                var feedList = document.querySelector(self.o.feedListId)
-                    , template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML)
-                    ;
+                var feedList = document.querySelector(self.o.feedListId);
+                var template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML);
                 feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
             });
         });
 
         if (typeof callback === 'function') { callback() };
     };
-
-    FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов.
+    FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов
         var self = this;
         self.login(function() {
             self._getMessageArray_(function(messageArray) {
-                console.log(messageArray);
                 var tagSet = new Object();
                 for (var m = 0, len = messageArray.length; m < len; m++) {
                     var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
@@ -187,17 +189,36 @@
             });
         });
     };
+    FeedApp.prototype.showTopTags = function(tagSet, callback) {
+        var self = this;
+        var popupBox = document.querySelector(self.o.popupBoxId);
+        var tagTable = document.querySelector(self.o.tagTableId);
+        var template = _.template(document.querySelector(self.o.tagTableTemplateId).innerHTML);
 
-    document.addEventListener('DOMContentLoaded', function(){
+        var topTags = Object.keys(tagSet).sort(function(a, b) {return tagSet[b] - tagSet[a];});
+        tagTable.innerHTML = template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount});
+        // console.log(template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount}));
+        popupBox.style.display = 'block';
+
+        if (typeof callback === 'function') {
+            callback();
+        };
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
         new FeedApp({
             'btnGetFeedId': '#get-feed',
-            'feedListId': '#feed',
             'btnTopTagsId': '#top-tags',
+            'btnPopupCloseId': '#popup-close',
+            'feedListId': '#feed',
+            'tagTableId': '#tag-table',
+            'popupBoxId': '#popup-box',
             'tagCount': 5,
             'feedTemplateId': '#list-template',
+            'tagTableTemplateId': '#tag-table-template',
             'meRequestFields': 'id,name,picture,link',
             'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',
-            'feedLimit': 250,
+            'feedLimit': 25,
             'scope': 'user_posts'
         });
     });

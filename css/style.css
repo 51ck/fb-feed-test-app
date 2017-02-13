@@ -19,16 +19,70 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.7);
 }
 #popup-box.box .popup {
   display: block;
-  position: absolute;
-  margin: auto;
+  position: relative;
+  margin: 60px auto 0;
   width: 256px;
+  padding: 42px 10px 10px;
+  background: white;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.2);
 }
 #popup-box.box .popup .popup-header {
   position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #4267b2;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  vertical-align: middle;
+  border-bottom: 1px solid #29487d;
+}
+#popup-box.box .popup .popup-header .button {
+  position: absolute;
+  right: 10px;
+  padding: 2px 3px;
+}
+#popup-box.box .popup .tag-table {
+  border-collapse: collapse;
+  margin: auto;
+  width: auto;
+}
+#popup-box.box .popup .tag-table tr {
+  display: block;
+  clear: both;
+  margin: 0;
+}
+#popup-box.box .popup .tag-table th,
+#popup-box.box .popup .tag-table td {
+  padding: 5px;
+  heigth: 2em;
+  vertical-align: middle;
+}
+#popup-box.box .popup .tag-table th {
+  color: gray;
+  text-align: center;
+  font-weight: normal;
+}
+#popup-box.box .popup .tag-table .top-pos-cell {
+  float: left;
+  width: 2em;
+  text-align: center;
+}
+#popup-box.box .popup .tag-table .tag-cell {
+  display: inline-block;
+  font-weight: bold;
+}
+#popup-box.box .popup .tag-table .tag-count-cell {
+  float: right;
+  width: 2em;
+  text-align: center;
 }
 .header {
   display: block;

@@ -34,17 +34,78 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(255,255,255,.3);
-
+    background: rgba(255,255,255,.7);
+   
     .popup {
         display: block;
-        position: absolute;
-        margin: auto;
+        position: relative;
+        margin: 60px auto 0;
         width: @feed-width / 2;
+        padding: 42px @feed-padding @feed-padding;
+        background: white;
+        border-radius: 3px;
+        overflow: hidden;
+        box-shadow: 0px 0px 3px rgba(0,0,3,.2);
+
 
         .popup-header {
             position: absolute;
-            
+            top: 0;
+            right: 0;
+            left: 0;
+            background: @san-marino;
+            padding: @feed-padding;  
+            color: white;
+            font-weight: bold;
+            // text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid @east-bay;
+
+            .button {
+                position: absolute;
+                right: @feed-padding;
+                padding: 2px 3px;
+            }
+        }
+
+        .tag-table {
+            border-collapse: collapse;
+            // &, * {border: 1px dotted @brdClr;}
+            margin: auto;
+            width: auto;
+            tr {
+                display: block;
+                clear: both;
+                margin: 0;
+            }
+            th,
+            td {
+                padding: @feed-padding / 2;
+                heigth: 2em;
+                vertical-align: middle;                
+            }
+            th {
+                color: gray;
+                text-align: center;
+                font-weight: normal;
+            }
+
+            .top-pos-cell {
+                float: left;
+                width: 2em;
+                text-align: center;
+            }
+            .tag-cell {
+                display: inline-block;
+                font-weight: bold;
+                
+            }
+            .tag-count-cell {
+                float: right;
+                width: 2em;
+                text-align: center;
+            }
+
         }
 
 
@@ -125,7 +186,6 @@ body {
                 box-sizing: border-box;
                 width: @av-size;
                 height: @av-size;
-                // box-shadow: 0 0 0 1px @brdClr;
             }
 
             .av-inner-border-hack {
@@ -151,7 +211,6 @@ body {
                 font-style: italic;
                 color: gray;
             }
-
         }
 
         .message {

@@ -16,16 +16,17 @@
             <div id="popup-box" class="box">
                 <div id="popup" class="popup">
                     <div class="popup-header">
-                        <p>Top 5 hashtags</p>
+                        <span>Top 5 hashtags</span>
                         <button id="popup-close" class="button" type="button">&times;</button>
                     </div>
-                    <ol id="tag-list" class="tag-list">
-                        <li>#elementary</li>
-                        <li>#regexp</li>
-                        <li>#linux</li>
-                        <li>#dragonfly</li>
-                        <li>#windows</li>
-                    </ol>
+                    <table id="tag-table" class="tag-table">
+                        <!-- <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
+                        <tr><td class="top-pos-cell">1.</td><td class="tag-cell">#elementary</td><td class="tag-count-cell">2</td></tr>
+                        <tr><td class="top-pos-cell">2.</td><td class="tag-cell">#regexp</td><td class="tag-count-cell">2</td></tr>
+                        <tr><td class="top-pos-cell">3.</td><td class="tag-cell">#linux</td><td class="tag-count-cell">2</td></tr>
+                        <tr><td class="top-pos-cell">4.</td><td class="tag-cell">#dragonfly</td><td class="tag-count-cell">2</td></tr>
+                        <tr><td class="top-pos-cell">5.</td><td class="tag-cell">#windows</td><td class="tag-count-cell">2</td></tr> -->
+                    </table>
                 </div>
             </div>
 
@@ -76,6 +77,15 @@
             </li>
         <% }); %>
         </script>
+
+        <script type="text/template" id="tag-table-template">
+            <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
+            <% console.log("table-template");
+            for (var i = 0; i < tagCount; i++) { var pos = i + 1; %>
+            <tr><td class="top-pos-cell"><%= pos %></td><td class="tag-cell"><%= topTags[i] %></td><td class="tag-count-cell"><%= tagSet[topTags[i]] %></td></tr>
+            <% }; %>
+        </script>
+
 
         <script type="text/javascript" src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
