@@ -67,32 +67,6 @@
         });
     };
 
-    FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов.
-        var self = this;
-        self.login(function() {
-            self._getMessageArray_(function(messageArray) {
-                console.log(messageArray);
-                var tagSet = new Object();
-                for (var m = 0, len = messageArray.length; m < len; m++) {
-                    var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
-                    if (tagArray && typeof tagArray === 'object') {
-                        for (var t = 0, n = tagArray.length; t < n; t++) {
-                            var tag = tagArray[t].replace(/\s+/g, '');
-                            if (tagSet.hasOwnProperty(tag)) {
-                                tagSet[tag]++;
-                            } else {
-                                tagSet[tag] = 1;
-                            };
-                        };
-                    };
-                };
-                if (typeof callback === 'function') {
-                    callback(tagSet);
-                };
-            });
-        });
-    };
-
     FeedApp.prototype.options = {
         dateOptions: {
             day: "numeric",
@@ -188,6 +162,32 @@
         if (typeof callback === 'function') { callback() };
     };
 
+    FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов.
+        var self = this;
+        self.login(function() {
+            self._getMessageArray_(function(messageArray) {
+                console.log(messageArray);
+                var tagSet = new Object();
+                for (var m = 0, len = messageArray.length; m < len; m++) {
+                    var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
+                    if (tagArray && typeof tagArray === 'object') {
+                        for (var t = 0, n = tagArray.length; t < n; t++) {
+                            var tag = tagArray[t].replace(/\s+/g, '');
+                            if (tagSet.hasOwnProperty(tag)) {
+                                tagSet[tag]++;
+                            } else {
+                                tagSet[tag] = 1;
+                            };
+                        };
+                    };
+                };
+                if (typeof callback === 'function') {
+                    callback(tagSet);
+                };
+            });
+        });
+    };
+
     document.addEventListener('DOMContentLoaded', function(){
         new FeedApp({
             'btnGetFeedId': '#get-feed',
@@ -197,7 +197,7 @@
             'feedTemplateId': '#list-template',
             'meRequestFields': 'id,name,picture,link',
             'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',
-            'feedLimit': 25,
+            'feedLimit': 250,
             'scope': 'user_posts'
         });
     });
