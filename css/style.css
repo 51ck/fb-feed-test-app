@@ -4,17 +4,17 @@
 }
 body {
   font-family: tahoma, helvetica, arial, sans-serif;
-  padding: 85px 10px 0;
+  padding: 56px 0 0;
   margin: 0;
   font-size: 12px;
   line-height: 1.38em;
   background: #e9ebee;
-  min-width: 532px;
+  min-width: 320px;
 }
 #popup-box.box {
-  display: none;
   position: fixed;
-  z-index: 3;
+  padding: 10px;
+  z-index: 10;
   top: 0;
   right: 0;
   bottom: 0;
@@ -25,12 +25,13 @@ body {
   display: block;
   position: relative;
   margin: 60px auto 0;
-  width: 256px;
+  max-width: 512px;
+  min-width: 320px;
   padding: 42px 5px 5px;
   background: white;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.2);
+  box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.4);
   font-size: 0;
 }
 #popup-box.box .popup .popup-header {
@@ -98,7 +99,7 @@ body {
   display: block;
   box-sizing: border-box;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   width: 100%;
@@ -131,10 +132,10 @@ body {
 .feed-list {
   list-style: none;
   display: block;
-  width: 512px;
-  min-width: 200px;
+  max-width: 512px;
+  min-width: 320px;
   box-sizing: border-box;
-  margin: 100px auto 0;
+  margin: 56px auto 0;
   padding: 10px;
 }
 .feed-list .post {
@@ -194,56 +195,59 @@ body {
   display: block;
   box-sizing: border-box;
   outline: none;
-  padding: 10px;
+  padding: 0;
   margin-top: 10px;
   transition: box-shadow 0.5s ease;
   box-shadow: 0px 0px 2px rgba(0, 0, 3, 0.1);
 }
-.feed-list .post .post-teaser .post-img {
-  display: block;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: -10px;
-  margin-bottom: 0;
-  box-sizing: border-box;
-  width: 470px;
-}
-.feed-list .post .post-teaser .post-img:last-child {
-  margin: -10px;
-  border: none;
-}
-.feed-list .post .post-teaser .post-name,
-.feed-list .post .post-teaser .post-description,
-.feed-list .post .post-teaser .post-caption {
-  text-decoration: none;
-  padding-top: 10px;
-  display: block;
-  font: 1em/1.38em inherit;
-  color: black;
-}
 .feed-list .post .post-teaser a {
   position: absolute;
+  z-index: 3;
   display: block;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
 }
-.feed-list .post .post-teaser .post-name {
+.feed-list .post .post-teaser .post-img {
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+.feed-list .post .post-teaser .post-img:last-child {
+  border: none;
+}
+.feed-list .post .post-teaser .teaser-description {
+  padding: 0 10px 10px;
+}
+.feed-list .post .post-teaser .teaser-description .post-name,
+.feed-list .post .post-teaser .teaser-description .post-description,
+.feed-list .post .post-teaser .teaser-description .post-caption {
+  text-decoration: none;
+  padding-top: 10px;
+  display: block;
+  font: 1em/1.38em inherit;
+  color: black;
+}
+.feed-list .post .post-teaser .teaser-description .post-name {
   font: 22px/1.1em georgia, serif;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
 }
-.feed-list .post .post-teaser .post-caption {
+.feed-list .post .post-teaser .teaser-description .post-caption {
   color: gray;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: uppercase;
 }
-.feed-list .post .post-teaser::after {
+.feed-list .post .post-teaser .teaser-description::after {
   content: "";
   position: absolute;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;

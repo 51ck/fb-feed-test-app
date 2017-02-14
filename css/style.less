@@ -1,5 +1,7 @@
 @av-size: 40px;
 @feed-width: 512px;
+@feed-min-width: 320px;
+
 @feed-padding: 10px;
 @brdTop: #e5e6e9;
 @brdLR: #dfe0e4;
@@ -9,7 +11,7 @@
 @st-topaz: #365899;
 @east-bay: #29487d;
 @brdClr: rgba(0, 0, 0, .1);
-@header-height: 75px;
+@header-height: 46px;
 
 * {
     -webkit-font-smoothing: antialiased;
@@ -18,18 +20,19 @@
 
 body {
     font-family: tahoma, helvetica, arial, sans-serif;
-    padding: @header-height + @feed-padding @feed-padding 0;
+    padding: @header-height + @feed-padding 0 0;
     margin: 0;
     font-size: 12px;
     line-height: 1.38em;
     background: @bodyBckgrnd;
-    min-width: @feed-width + 2 * @feed-padding;
+    min-width: @feed-min-width;
 }
 
-#popup-box.box {
-    display: none;
+#popup-box.box { //POPUP
+    // display: none;
     position: fixed;
-    z-index: 3;
+    padding: @feed-padding;
+    z-index: 10;
     top: 0;
     right: 0;
     bottom: 0;
@@ -40,12 +43,13 @@ body {
         display: block;
         position: relative;
         margin: 60px auto 0;
-        width: @feed-width / 2;
+        max-width: @feed-width;
+        min-width: @feed-min-width;
         padding: 42px .5 * @feed-padding .5 * @feed-padding;
         background: white;
         border-radius: 3px;
         overflow: hidden;
-        box-shadow: 0px 0px 3px rgba(0,0,3,.2);
+        box-shadow: 0px 0px 3px rgba(0,0,3,.4);
         font-size: 0;
 
 
@@ -118,58 +122,20 @@ body {
 
             }
         }
-
-        // .tag-table {
-        //     border-collapse: collapse;
-        //     // &, * {border: 1px dotted @brdClr;}
-        //     margin: auto;
-        //     width: auto;
-        //     tr {
-        //         display: block;
-        //         clear: both;
-        //         margin: 0;
-        //     }
-        //     th,
-        //     td {
-        //         padding: @feed-padding / 2;
-        //         heigth: 2em;
-        //         vertical-align: middle;                
-        //     }
-        //     th {
-        //         color: gray;
-        //         text-align: center;
-        //         font-weight: normal;
-        //     }
-        //     .top-pos-cell {
-        //         float: left;
-        //         width: 2em;
-        //         text-align: center;
-        //     }
-        //     .tag-cell {
-        //         display: inline-block;
-        //         font-weight: bold;
-        //     }
-        //     .tag-count-cell {
-        //         float: right;
-        //         width: 2em;
-        //         text-align: center;
-        //     }
-        // }
     }
 }
 
-.header {
+.header { //HEADER
     display: block;
     box-sizing: border-box;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     top: 0;
     left: 0;
     width: 100%;
     border-bottom: 1px solid @east-bay;
     background: @san-marino;
     padding: @feed-padding;
-
 }
 
 .button {
@@ -201,10 +167,10 @@ body {
 .feed-list {
     list-style: none;
     display: block;
-    width: @feed-width;
-    min-width: 200px;
+    max-width: @feed-width;
+    min-width: @feed-min-width;
     box-sizing: border-box;
-    margin: 100px auto 0;
+    margin: @header-height + @feed-padding auto 0;
     padding: @feed-padding;
 
     .post {
@@ -272,37 +238,14 @@ body {
             display: block;
             box-sizing: border-box;
             outline: none;
-            padding: @feed-padding;
+            padding: 0;
             margin-top: @feed-padding;
             transition: box-shadow 0.5s ease;
             box-shadow: 0px 0px 2px rgba(0,0,3,.1);
 
-            .post-img {
-                display: block;
-                border-bottom: 1px solid @brdClr;
-                margin: -1 * @feed-padding;
-                margin-bottom: 0;            
-                box-sizing: border-box;
-                width: @feed-width - 4 * @feed-padding - 2;
-
-                &:last-child {
-                     margin: -1 * @feed-padding;
-                     border: none;
-                }
-            }
-
-            .post-name,
-            .post-description,
-            .post-caption {  
-                text-decoration: none;
-                padding-top: @feed-padding;
-                display: block;
-                font: 1em/1.38em inherit;
-                color: black;
-            }
-
             a {
                 position: absolute;
+                z-index: 3;
                 display: block;
                 width: 100%;
                 height: 100%;
@@ -310,34 +253,55 @@ body {
                 left: 0;
             }
 
-            .post-name {
-                font: 22px/1.1em georgia, serif;
-                white-space: nowrap;
-                overflow-x: hidden;
-                text-overflow: ellipsis;
+            .post-img {
+                display: block;
+                border-bottom: 1px solid @brdClr;
+                margin-bottom: 0;            
+                box-sizing: border-box;
+                width: 100%;
+
+
+                &:last-child {
+                     // margin: -1 * @feed-padding;
+                     border: none;
+                }
             }
 
-            .post-description {
-            
-            }
+            .teaser-description {
+                padding: 0 @feed-padding @feed-padding;
 
-            .post-caption {
-                color: gray;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                text-transform: uppercase;
-            }
-
-
-            &::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                border: 1px solid @brdClr;
+                .post-name,
+                .post-description,
+                .post-caption {  
+                    text-decoration: none;
+                    padding-top: @feed-padding;
+                    display: block;
+                    font: 1em/1.38em inherit;
+                    color: black;
+                }
+                .post-name {
+                    font: 22px/1.1em georgia, serif;
+                    white-space: nowrap;
+                    overflow-x: hidden;
+                    text-overflow: ellipsis;
+                }
+                .post-caption {
+                    color: gray;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-transform: uppercase;
+                }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    z-index: 1;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    border: 1px solid @brdClr;
+                }
             }
         }
 

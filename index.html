@@ -2,6 +2,7 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Feed Test App</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
@@ -20,25 +21,17 @@
                         <button id="popup-close" class="button" type="button">&times;</button>
                     </div>
                     <div id="popup-content">
-                    <!-- <a class="tag-link" href="#"><span class="tag">regexp</span><span class="tag-count">255</span></a>
+                    <a class="tag-link" href="#"><span class="tag">regexp</span><span class="tag-count">255</span></a>
                     <a class="tag-link" href="#"><span class="tag">linux</span><span class="tag-count">2</span></a>
                     <a class="tag-link" href="#"><span class="tag">elementary</span><span class="tag-count">1</span></a>
                     <a class="tag-link" href="#"><span class="tag">Unity</span><span class="tag-count">1</span></a>
-                    <a class="tag-link" href="#"><span class="tag">Windows</span><span class="tag-count">1</span></a> -->
-                    <!-- <table id="tag-table" class="tag-table">
-                        <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
-                        <tr><td class="top-pos-cell">1.</td><td class="tag-cell">#elementary</td><td class="tag-count-cell">2</td></tr>
-                        <tr><td class="top-pos-cell">2.</td><td class="tag-cell">#regexp</td><td class="tag-count-cell">2</td></tr>
-                        <tr><td class="top-pos-cell">3.</td><td class="tag-cell">#linux</td><td class="tag-count-cell">2</td></tr>
-                        <tr><td class="top-pos-cell">4.</td><td class="tag-cell">#dragonfly</td><td class="tag-count-cell">2</td></tr>
-                        <tr><td class="top-pos-cell">5.</td><td class="tag-cell">#windows</td><td class="tag-count-cell">2</td></tr>
-                    </table> -->
+                    <a class="tag-link" href="#"><span class="tag">Windows</span><span class="tag-count">1</span></a>
                     </div>
                 </div>
             </div>
 
             <ul id="feed" class="feed-list">
-<!--                 <li id="post-id" class="post">
+                <li id="post-id" class="post">
                     <div class="post-header">
                         <a href="#"><div class="av av-inner-border-hack"><img class="av" src="#av"></div></a>
                         <h2 class="story">Bearded Pete shared a link</h2>
@@ -46,13 +39,15 @@
                     </div>
                     <p class="message">Если вы еще не в курсе, Less — это основанный на JavaScript CSS препроцессор.</p>
                     <div class="post-teaser">
-                        <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
-                        <span class="post-name">Новый велосипед "LESS". А вы такую видали?</span>
-                        <span class="post-description"> Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</span>
-                        <span class="post-caption">post-name</span>
                         <a href="#post-link"></a>
+                        <img class="post-img" src="https://scontent.xx.fbcdn.net/v/t15.0-10/p720x720/16231558_10155783807754972_2506447939333783552_n.jpg?oh=8fcb5040565702b88df93c3aff306b27&oe=594A75C8">
+                        <div class="teaser-description">
+                            <span class="post-name">Новый велосипед "LESS". А вы такую видали?</span>
+                            <span class="post-description"> Это код который компилируется в CSS. Существуют разные способы компиляции less в css: Grunt, Guard, и Less.app. Однако возможно вы не хотите, или вам не нужно использовать дополнительные инструменты, и хочется все сделать прямо в редакторе кода. Ниже я привел инструкцию которая подойдет пользователям Windows (я сам делал установку по ней, и также для mac ОС.)</span>
+                            <span class="post-caption">post-name</span>
+                        </div>
                     </div>
-                </li> -->
+                </li>
             </ul>
         </main>
 
@@ -76,9 +71,13 @@
                 <div class="post-teaser">
                     <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>"></a>
                     <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
-                    <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
-                    <% if (post.description) { %><span class="post-description"><%- post.description %></span><% }; %>
-                    <% if (post.caption) { %><span class="post-caption"><%= post.caption %></span><% }; %>
+                    <% if (post.name || post.description || post.caption) { %>
+                    <div class="teaser-description">
+                        <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
+                        <% if (post.description) { %><span class="post-description"><%- post.description %></span><% }; %>
+                        <% if (post.caption) { %><span class="post-caption"><%= post.caption %></span><% }; %>
+                    </div>
+                    <% }; %>
                 </div>
                 <% }; %>
             </li>
