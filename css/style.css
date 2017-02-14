@@ -26,11 +26,12 @@ body {
   position: relative;
   margin: 60px auto 0;
   width: 256px;
-  padding: 42px 10px 10px;
+  padding: 42px 5px 5px;
   background: white;
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0px 0px 3px rgba(0, 0, 3, 0.2);
+  font-size: 0;
 }
 #popup-box.box .popup .popup-header {
   position: absolute;
@@ -40,6 +41,7 @@ body {
   background: #4267b2;
   padding: 10px;
   color: white;
+  font-size: 12px;
   font-weight: bold;
   vertical-align: middle;
   border-bottom: 1px solid #29487d;
@@ -49,40 +51,48 @@ body {
   right: 10px;
   padding: 2px 3px;
 }
-#popup-box.box .popup .tag-table {
-  border-collapse: collapse;
-  margin: auto;
-  width: auto;
-}
-#popup-box.box .popup .tag-table tr {
-  display: block;
-  clear: both;
-  margin: 0;
-}
-#popup-box.box .popup .tag-table th,
-#popup-box.box .popup .tag-table td {
-  padding: 5px;
-  heigth: 2em;
-  vertical-align: middle;
-}
-#popup-box.box .popup .tag-table th {
-  color: gray;
-  text-align: center;
-  font-weight: normal;
-}
-#popup-box.box .popup .tag-table .top-pos-cell {
-  float: left;
-  width: 2em;
-  text-align: center;
-}
-#popup-box.box .popup .tag-table .tag-cell {
+#popup-box.box .popup .tag-link {
+  position: relative;
   display: inline-block;
+  background: #4267b2;
+  color: white;
+  font-size: 12px;
   font-weight: bold;
+  text-decoration: none;
+  padding: .5em;
+  padding-left: 2em;
+  margin: 5px;
+  border-radius: 3px;
+  border-bottom: 1px solid #29487d;
 }
-#popup-box.box .popup .tag-table .tag-count-cell {
-  float: right;
-  width: 2em;
+#popup-box.box .popup .tag-link .tag-count {
+  font-weight: normal;
+  position: absolute;
+  font-size: 10px;
   text-align: center;
+  top: -1em;
+  right: -1em;
+  background: red;
+  padding: 0 .5em;
+  border-radius: 2em;
+  margin: .25em;
+  border: 1px solid darkred;
+}
+#popup-box.box .popup .tag-link:hover {
+  background: #365899;
+}
+#popup-box.box .popup .tag-link::before {
+  content: "#";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: inline-block;
+  background: #29487d;
+  width: 1.5em;
+  text-align: center;
+  padding: .5em 0;
+  border-radius: 3px 0 0 3px;
 }
 .header {
   display: block;

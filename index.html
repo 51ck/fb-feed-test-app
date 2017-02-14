@@ -9,7 +9,7 @@
         <header>
             <div class="header">
                 <button id="get-feed" class="button" type="button">Get your feed</button>
-                <button id="top-tags" class="button" type="button" disabled>Top tags</button>
+                <button id="top-tags" class="button" type="button" disabled>Top &#35;tags</button>
             </div>
         </header>
         <main>
@@ -19,14 +19,21 @@
                         <span>Top 5 hashtags</span>
                         <button id="popup-close" class="button" type="button">&times;</button>
                     </div>
-                    <table id="tag-table" class="tag-table">
-                        <!-- <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
+                    <div id="popup-content">
+                    <!-- <a class="tag-link" href="#"><span class="tag">regexp</span><span class="tag-count">255</span></a>
+                    <a class="tag-link" href="#"><span class="tag">linux</span><span class="tag-count">2</span></a>
+                    <a class="tag-link" href="#"><span class="tag">elementary</span><span class="tag-count">1</span></a>
+                    <a class="tag-link" href="#"><span class="tag">Unity</span><span class="tag-count">1</span></a>
+                    <a class="tag-link" href="#"><span class="tag">Windows</span><span class="tag-count">1</span></a> -->
+                    <!-- <table id="tag-table" class="tag-table">
+                        <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
                         <tr><td class="top-pos-cell">1.</td><td class="tag-cell">#elementary</td><td class="tag-count-cell">2</td></tr>
                         <tr><td class="top-pos-cell">2.</td><td class="tag-cell">#regexp</td><td class="tag-count-cell">2</td></tr>
                         <tr><td class="top-pos-cell">3.</td><td class="tag-cell">#linux</td><td class="tag-count-cell">2</td></tr>
                         <tr><td class="top-pos-cell">4.</td><td class="tag-cell">#dragonfly</td><td class="tag-count-cell">2</td></tr>
-                        <tr><td class="top-pos-cell">5.</td><td class="tag-cell">#windows</td><td class="tag-count-cell">2</td></tr> -->
-                    </table>
+                        <tr><td class="top-pos-cell">5.</td><td class="tag-cell">#windows</td><td class="tag-count-cell">2</td></tr>
+                    </table> -->
+                    </div>
                 </div>
             </div>
 
@@ -78,12 +85,21 @@
         <% }); %>
         </script>
 
-        <script type="text/template" id="tag-table-template">
-            <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
+        <script type="text/template" id="tag-line-template">
             <% console.log("table-template");
-            for (var i = 0; i < tagCount; i++) { var pos = i + 1; %>
-            <tr><td class="top-pos-cell"><%= pos %></td><td class="tag-cell"><%= topTags[i] %></td><td class="tag-count-cell"><%= tagSet[topTags[i]] %></td></tr>
+            for (var i = 0; i < tagCount; i++) { var tag = topTags[i].replace('#', ''); %>
+            <a class="tag-link" href="https://facebook.com/hashtag/<%= tag %>"><span class="tag"><%= tag %></span><span class="tag-count"><%= tagSet[topTags[i]] %></span></a>
             <% }; %>
+        </script>
+
+        <script type="text/template" id="tag-table-template">
+            <table id="tag-table" class="tag-table">
+                <tr><th class="top-pos-cell">№</th><th class="tag-cell">#</th><th class="tag-count-cell">&Sigma;</th></tr>
+                <% console.log("table-template");
+                for (var i = 0; i < tagCount; i++) { var pos = i + 1; %>
+                <tr><td class="top-pos-cell"><%= pos %></td><td class="tag-cell"><%= topTags[i] %></td><td class="tag-count-cell"><%= tagSet[topTags[i]] %></td></tr>
+                <% }; %>
+            </table>
         </script>
 
 

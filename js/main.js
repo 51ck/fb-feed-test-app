@@ -84,11 +84,11 @@
         btnTopTagsId: null,
         btnPopupCloseId: null,
         feedListId: null,
-        tagTableId: null,
+        popupContentId: null,
         popupBoxId: null,
         tagCount: 1,
         feedTemplateId: null,
-        tagTableTemplateId: null,
+        tagContentTemplateId: null,
         feedRequstFields: 'message',
         feedLimit: 10,
         meRequestFields: 'name,picture,link',
@@ -174,7 +174,7 @@
                     var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
                     if (tagArray && typeof tagArray === 'object') {
                         for (var t = 0, n = tagArray.length; t < n; t++) {
-                            var tag = tagArray[t].replace(/\s+/g, '');
+                            var tag = tagArray[t].replace(/\s+/g, '').toLowerCase();
                             if (tagSet.hasOwnProperty(tag)) {
                                 tagSet[tag]++;
                             } else {
@@ -192,11 +192,11 @@
     FeedApp.prototype.showTopTags = function(tagSet, callback) {
         var self = this;
         var popupBox = document.querySelector(self.o.popupBoxId);
-        var tagTable = document.querySelector(self.o.tagTableId);
-        var template = _.template(document.querySelector(self.o.tagTableTemplateId).innerHTML);
+        var tagContent = document.querySelector(self.o.popupContentId);
+        var template = _.template(document.querySelector(self.o.tagContentTemplateId).innerHTML);
 
         var topTags = Object.keys(tagSet).sort(function(a, b) {return tagSet[b] - tagSet[a];});
-        tagTable.innerHTML = template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount});
+        tagContent.innerHTML = template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount});
         // console.log(template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount}));
         popupBox.style.display = 'block';
 
@@ -211,11 +211,11 @@
             'btnTopTagsId': '#top-tags',
             'btnPopupCloseId': '#popup-close',
             'feedListId': '#feed',
-            'tagTableId': '#tag-table',
+            'popupContentId': '#popup-content',
             'popupBoxId': '#popup-box',
             'tagCount': 5,
             'feedTemplateId': '#list-template',
-            'tagTableTemplateId': '#tag-table-template',
+            'tagContentTemplateId': '#tag-line-template',
             'meRequestFields': 'id,name,picture,link',
             'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',
             'feedLimit': 25,

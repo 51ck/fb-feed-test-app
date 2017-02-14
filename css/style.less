@@ -41,11 +41,12 @@ body {
         position: relative;
         margin: 60px auto 0;
         width: @feed-width / 2;
-        padding: 42px @feed-padding @feed-padding;
+        padding: 42px .5 * @feed-padding .5 * @feed-padding;
         background: white;
         border-radius: 3px;
         overflow: hidden;
         box-shadow: 0px 0px 3px rgba(0,0,3,.2);
+        font-size: 0;
 
 
         .popup-header {
@@ -56,6 +57,7 @@ body {
             background: @san-marino;
             padding: @feed-padding;  
             color: white;
+            font-size: 12px;
             font-weight: bold;
             // text-align: center;
             vertical-align: middle;
@@ -68,47 +70,91 @@ body {
             }
         }
 
-        .tag-table {
-            border-collapse: collapse;
-            // &, * {border: 1px dotted @brdClr;}
-            margin: auto;
-            width: auto;
-            tr {
-                display: block;
-                clear: both;
-                margin: 0;
-            }
-            th,
-            td {
-                padding: @feed-padding / 2;
-                heigth: 2em;
-                vertical-align: middle;                
-            }
-            th {
-                color: gray;
-                text-align: center;
+        .tag-link {
+            position: relative;
+            display: inline-block;
+            background: @san-marino;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: .5em;
+            padding-left: 2em;
+            margin: .5 * @feed-padding;
+            // overflow: hidden;
+            border-radius: 3px;
+            border-bottom: 1px solid @east-bay;
+
+            .tag-count {
                 font-weight: normal;
+                position: absolute;
+                font-size: 10px;
+                text-align: center;
+                top: -1em;
+                right: -1em;
+                background: red;
+                padding: 0 .5em;
+                border-radius: 2em;
+                margin: .25em;
+                border: 1px solid darkred;
             }
 
-            .top-pos-cell {
-                float: left;
-                width: 2em;
-                text-align: center;
+            &:hover {
+                background: @st-topaz;
             }
-            .tag-cell {
+
+            &::before {
+                content: "#";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
                 display: inline-block;
-                font-weight: bold;
-                
-            }
-            .tag-count-cell {
-                float: right;
-                width: 2em;
+                background: @east-bay;
+                width: 1.5em;
                 text-align: center;
-            }
+                padding: .5em 0;
+                border-radius: 3px 0 0 3px;
 
+            }
         }
 
-
+        // .tag-table {
+        //     border-collapse: collapse;
+        //     // &, * {border: 1px dotted @brdClr;}
+        //     margin: auto;
+        //     width: auto;
+        //     tr {
+        //         display: block;
+        //         clear: both;
+        //         margin: 0;
+        //     }
+        //     th,
+        //     td {
+        //         padding: @feed-padding / 2;
+        //         heigth: 2em;
+        //         vertical-align: middle;                
+        //     }
+        //     th {
+        //         color: gray;
+        //         text-align: center;
+        //         font-weight: normal;
+        //     }
+        //     .top-pos-cell {
+        //         float: left;
+        //         width: 2em;
+        //         text-align: center;
+        //     }
+        //     .tag-cell {
+        //         display: inline-block;
+        //         font-weight: bold;
+        //     }
+        //     .tag-count-cell {
+        //         float: right;
+        //         width: 2em;
+        //         text-align: center;
+        //     }
+        // }
     }
 }
 
