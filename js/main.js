@@ -52,9 +52,9 @@
         btnGetFeed.addEventListener('click', function() { // Клик по кнопке get-feed
             self.getFeed(function(){
                 if (btnTopTags.disabled) { // Делаем кнопку top-tags активной
-                    self.login(function(){
+                    // self.login(function(){
                         changeButtonState(btnTopTags);
-                    }); 
+                    // }); 
                 };
             });
         });
