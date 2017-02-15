@@ -12,6 +12,7 @@ body {
   min-width: 320px;
 }
 #popup-box.box {
+  display: none;
   position: fixed;
   padding: 10px;
   z-index: 10;
@@ -99,7 +100,7 @@ body {
   display: block;
   box-sizing: border-box;
   position: fixed;
-  z-index: 3;
+  z-index: 5;
   top: 0;
   left: 0;
   width: 100%;

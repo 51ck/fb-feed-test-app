@@ -17,21 +17,21 @@
             <div id="popup-box" class="box">
                 <div id="popup" class="popup">
                     <div class="popup-header">
-                        <span>Top 5 hashtags</span>
+                        <span>Top &#35;tags</span>
                         <button id="popup-close" class="button" type="button">&times;</button>
                     </div>
                     <div id="popup-content">
-                    <a class="tag-link" href="#"><span class="tag">regexp</span><span class="tag-count">255</span></a>
+                    <!-- <a class="tag-link" href="#"><span class="tag">regexp</span><span class="tag-count">255</span></a>
                     <a class="tag-link" href="#"><span class="tag">linux</span><span class="tag-count">2</span></a>
                     <a class="tag-link" href="#"><span class="tag">elementary</span><span class="tag-count">1</span></a>
                     <a class="tag-link" href="#"><span class="tag">Unity</span><span class="tag-count">1</span></a>
-                    <a class="tag-link" href="#"><span class="tag">Windows</span><span class="tag-count">1</span></a>
+                    <a class="tag-link" href="#"><span class="tag">Windows</span><span class="tag-count">1</span></a> -->
                     </div>
                 </div>
             </div>
 
             <ul id="feed" class="feed-list">
-                <li id="post-id" class="post">
+                <!-- <li id="post-id" class="post">
                     <div class="post-header">
                         <a href="#"><div class="av av-inner-border-hack"><img class="av" src="#av"></div></a>
                         <h2 class="story">Bearded Pete shared a link</h2>
@@ -47,14 +47,15 @@
                             <span class="post-caption">post-name</span>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </main>
 
         <script type="text/template" id="list-template"> 
         <%
-        _.each(postArray, function(post, index, list) { %>
-            <li id="<%= post.id %>" class="post">
+        _.each(postArray, function(post, index, list) { 
+            var id = 'id' + post.id;%>
+            <li id="<%= id %>" class="post">
                 <div class="post-header">
                     <a href="<%= user.link %>">
                         <div class="av av-inner-border-hack">
@@ -70,7 +71,9 @@
                 <% if (post.full_picture || post.name || post.description || post.caption) { %>
                 <div class="post-teaser">
                     <a href="<% if (post.link) { %><%= post.link %><% } else { %>#<% }; %>"></a>
-                    <% if (post.full_picture) { %><img class="post-img" src="<%= post.full_picture %>"> <% }; %>
+                    <% if (post.full_picture) { %>
+                    <img class="post-img" src="<% if (post.link.match( /.+\.gif/i )) {%><%= post.link %><% } else {%><%= post.full_picture %><%};%>"> 
+                    <% }; %>
                     <% if (post.name || post.description || post.caption) { %>
                     <div class="teaser-description">
                         <% if (post.name) { %><span class="post-name"><%= post.name %></span><% }; %>
@@ -85,8 +88,7 @@
         </script>
 
         <script type="text/template" id="tag-line-template">
-            <% console.log("table-template");
-            for (var i = 0; i < tagCount; i++) { var tag = topTags[i].replace('#', ''); %>
+            <% for (var i = 0; (i < tagCount && i < topTags.length); i++) { var tag = topTags[i].replace('#', ''); %>
             <a class="tag-link" href="https://facebook.com/hashtag/<%= tag %>"><span class="tag"><%= tag %></span><span class="tag-count"><%= tagSet[topTags[i]] %></span></a>
             <% }; %>
         </script>

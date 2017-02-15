@@ -58,13 +58,11 @@
                 };
             });
         });
-
         btnTopTags.addEventListener('click', function() { // Клик по кнопке top-tags
              self.getUserTags(function(tagSet){
                 self.showTopTags(tagSet);
              });
         });
-
         var btnPopupClose = document.querySelector(self.o.btnPopupCloseId);
         btnPopupClose.addEventListener('click', function() {
             var popupBox = document.querySelector(self.o.popupBoxId);
@@ -136,6 +134,19 @@
         });
     };
 
+    FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 
+        var self = this;
+        self.login (function() {
+            FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {
+                var feedList = document.querySelector(self.o.feedListId);
+                var template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML);
+                feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
+            });
+        });
+
+        if (typeof callback === 'function') { callback() };
+    };
+
     FeedApp.prototype._getMessageArray_ = function(callback) { // Вытаскиваем из фида только post.message
         var self = this;
         var messageArray = new Array();
@@ -153,18 +164,7 @@
             console.log("_getMessageArray_: wrong callback");
         };
     };
-    FeedApp.prototype.getFeed = function (callback) { // Получение постов из фида, размещение данных на странице 
-        var self = this;
-        self.login (function() {
-            FB.api('/me/feed', { fields: self.o.feedRequestFields, limit: self.o.feedLimit }, function(response) {
-                var feedList = document.querySelector(self.o.feedListId);
-                var template = _.template(document.querySelector(self.o.feedTemplateId).innerHTML);
-                feedList.innerHTML = template({postArray: response.data, user: self.user, options: self.o.dateOptions});
-            });
-        });
-
-        if (typeof callback === 'function') { callback() };
-    };
+    
     FeedApp.prototype.getUserTags = function(callback) { // Метод получения тегов
         var self = this;
         self.login(function() {
@@ -189,17 +189,15 @@
             });
         });
     };
+    
     FeedApp.prototype.showTopTags = function(tagSet, callback) {
         var self = this;
         var popupBox = document.querySelector(self.o.popupBoxId);
         var tagContent = document.querySelector(self.o.popupContentId);
         var template = _.template(document.querySelector(self.o.tagContentTemplateId).innerHTML);
-
         var topTags = Object.keys(tagSet).sort(function(a, b) {return tagSet[b] - tagSet[a];});
         tagContent.innerHTML = template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount});
-        // console.log(template({'tagSet': tagSet, 'topTags': topTags, 'tagCount': self.o.tagCount}));
         popupBox.style.display = 'block';
-
         if (typeof callback === 'function') {
             callback();
         };
@@ -218,7 +216,7 @@
             'tagContentTemplateId': '#tag-line-template',
             'meRequestFields': 'id,name,picture,link',
             'feedRequestFields': 'id,story,link,message,caption,name,description,created_time,permalink_url,full_picture',
-            'feedLimit': 25,
+            'feedLimit': 50,
             'scope': 'user_posts'
         });
     });
