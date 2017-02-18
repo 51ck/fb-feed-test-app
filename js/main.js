@@ -39,7 +39,7 @@
     };
 
     function changeButtonState(button) { // Изменение свойства disabled у кнопки на противоположное
-        if (button.type === 'button' && (!button.disabled || button.disabled)) {
+        if (button.type === 'button') {
             button.disabled = !button.disabled;
         };
     };
@@ -102,8 +102,7 @@
 
     FeedApp.prototype._getUserInfo_ = function(uid) { // Метод, забирающий uid, имя пользователя, ссылки на аватар и страницу 
         var self = this;
-        if (typeof uid === 'undefined') { uid = '/me'; };
-        FB.api('/me', { fields: self.o.meRequestFields }, function(response) {
+        FB.api((uid || '/me'), { fields: self.o.meRequestFields }, function(response) {
             self.user.uid = response.id;
             self.user.name = response.name;
             self.user.picture = response.picture.data.url;
@@ -171,10 +170,10 @@
             self._getMessageArray_(function(messageArray) {
                 var tagSet = new Object();
                 for (var m = 0, len = messageArray.length; m < len; m++) {
-                    var tagArray = messageArray[m].match(/(\s|^)(\#\w+)/ig);
+                    var tagArray = messageArray[m].match(/(\B\#\w\w+)/ig);
                     if (tagArray && typeof tagArray === 'object') {
                         for (var t = 0, n = tagArray.length; t < n; t++) {
-                            var tag = tagArray[t].replace(/\s+/g, '').toLowerCase();
+                            var tag = tagArray[t].toLowerCase();
                             if (tagSet.hasOwnProperty(tag)) {
                                 tagSet[tag]++;
                             } else {

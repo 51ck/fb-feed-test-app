@@ -30,8 +30,8 @@
                 </div>
             </div>
 
-            <ul id="feed" class="feed-list">
-                <!-- <li id="post-id" class="post">
+            <section id="feed" class="feed-list">
+                <!-- <article id="post-id" class="post">
                     <div class="post-header">
                         <a href="#"><div class="av av-inner-border-hack"><img class="av" src="#av"></div></a>
                         <h2 class="story">Bearded Pete shared a link</h2>
@@ -47,15 +47,15 @@
                             <span class="post-caption">post-name</span>
                         </div>
                     </div>
-                </li> -->
-            </ul>
+                </article> -->
+            </section>
         </main>
 
         <script type="text/template" id="list-template"> 
         <%
         _.each(postArray, function(post, index, list) { 
             var id = 'id' + post.id;%>
-            <li id="<%= id %>" class="post">
+            <article id="<%= id %>" class="post">
                 <div class="post-header">
                     <a href="<%= user.link %>">
                         <div class="av av-inner-border-hack">
@@ -83,7 +83,7 @@
                     <% }; %>
                 </div>
                 <% }; %>
-            </li>
+            </article>
         <% }); %>
         </script>
 
