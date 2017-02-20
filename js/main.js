@@ -100,6 +100,22 @@
         link: null
     };
 
+    FeedApp.prototype.messageParse = function(message, regEx) {
+        var self = this;
+        var resultArray = [];
+        var match;
+        var reList = {
+            hashtag: /(?:[^\w&\/_]|^)(#[\w_]*[a-zA-Zа-яА-Я]+[\w_]*)/img
+        };
+        var re = (reList[regEx] || regEx);
+
+        while(re && (match = re.exec(message))) {
+            resultArray.push(match[1]);
+        };
+
+        return resultArray;
+    };
+
     FeedApp.prototype._getUserInfo_ = function(uid) { // Метод, забирающий uid, имя пользователя, ссылки на аватар и страницу 
         var self = this;
         FB.api((uid || '/me'), { fields: self.o.meRequestFields }, function(response) {
@@ -170,7 +186,9 @@
             self._getMessageArray_(function(messageArray) {
                 var tagSet = new Object();
                 for (var m = 0, len = messageArray.length; m < len; m++) {
-                    var tagArray = messageArray[m].match(/(\B\#\w\w+)/ig);
+                    // var tagArray = messageArray[m].match(/(?:[^\w&\/_]|^)(#[\w_]*[a-zA-Zа-яА-Я]+[\w_]*)/ig);
+                    var tagArray = _.uniq(self.messageParse(messageArray[m], 'hashtag'));
+                    console.log(tagArray);
                     if (tagArray && typeof tagArray === 'object') {
                         for (var t = 0, n = tagArray.length; t < n; t++) {
                             var tag = tagArray[t].toLowerCase();
